@@ -1,10 +1,6 @@
 <?php 
-
     require_once('./database.php');
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -13,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>出欠管理アプリ</title>
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="signin">
@@ -31,7 +27,7 @@
             
         </form>
     </div>
-    <?php 
+    <?php
     // if(isset($_POST["guardian"])){
     //     //保護者用ボタンが押された時
     //     //inputname.phpに遷移する
@@ -41,7 +37,7 @@
     // }
      ?>
 
-<?php 
+<?php
     // if(isset($_POST["childminder"])){
     //     //保育士用ボタンが押された時
     //     //management.phpに遷移する
@@ -49,6 +45,6 @@
     //     unset($_SESSION['保育士用']);
     //     exit();
     // }
-     ?>
+?>
 </body>
 </html>

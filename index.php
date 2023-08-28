@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>出欠管理アプリ</title>
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <div class="signin">
@@ -18,11 +18,9 @@
                 <div>
                 <a href="management.php">保育士用</a>
                 </div>
-                
             </div>
-            
         </form>
     </div>
-    
+
 </body>
 </html>

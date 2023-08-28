@@ -1,67 +1,65 @@
-<?php 
+<?php
+    try {
+ 
+        // 接続処理
+        $db_user = "sample"; //ユーザー名
+        $db_pass = "password"; //パスワード
+        $db_host = "localhost"; //ホスト名
+        $db_name = "attendance_managementdb"; //データベース名
+        $db_type = "mysql"; //データベースの種類
 
-    require_once('./database.php');
-
+        //DSN（接続のための決まった情報を決まった順序に組み立てた文字列のこと）の組み立て
+        $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
+        try{
+            //MySQLに接続
+            $pdo = new PDO($dsn, $db_user, $db_pass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE,
+                    PDO::ERRMODE_EXCEPTION);
+    
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            //print "接続しました...<br>";
+        }catch(PDOException $Exception){
+            die('接続エラー:'.$Exception->getMessage());
+        }
+ 
+        // SELECT文を発行
+        $sql = "SELECT * FROM kindergarteners";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(); // 全てのレコードを取得
+ 
+        // 接続切断
+        $pdo = null;
+ 
+    } catch (PDOException $e) {
+        print $e->getMessage() . "<br/>";
+        die();
+    }
 ?>
-
-
+ 
+ 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!--link rel="stylesheet" href="InputStyle.css"-->
+    <title>一覧</title>
 </head>
 <body>
-    <h3 class="midasi">名前入力画面</h3>
-    <form action="inputinfo.php", method="post">
-        <label for="name">名前</label>
-        <input type="text" value="" name="name">
-        
-        <div class="next-page">
-            <div>
-            <input type="submit" value="出欠登録に進む" name="next">
-            </div>
-        </div>
-        
-        
-
-
-    </form>
-    
-
-    <?php 
-    
-    // if(isset($_POST["next"])){
-    //     //レポートボタンが押された時
-    //     if($_POST["name"] == "あいうえお"){
-    //         //inputinfo.phpに遷移する
-    //         header("Location:inputinfo.php");
-    //         unset($_SESSION['次へ']);
-    //         exit();   
-    //     }else if($_POST["name"] == "まなか"){
-    //         //inputinfo.phpに遷移する
-    //         header("Location:inputinfo.php");
-    //         unset($_SESSION['次へ']);
-    //         exit();   
-
-    //     }else{
-    //         print '未登録の生徒です。<br>';
-
-    //     }
-
-
-
-
-       
-    // }
-    ?>
-        
-       
-
-   
-    
+    <h3>園児一覧</h3>
+    <table border="1">
+        <tr>
+            <th>名前</th>
+        </tr>
+ 
+<?php
+    foreach($rows as $row){
+?>
+        <tr>
+            <td><a href="inputinfo.php?id=<?php print($row['name']) ?>"><?php print($row['name']) ?></a></td>
+        </tr>
+<?php
+    }
+?>
+    </table>
 </body>
-</html> 
+</html>

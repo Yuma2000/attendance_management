@@ -45,7 +45,7 @@ class Database{
         $stmt->execute();
         $rows = $stmt->fetchAll(); // 全てのレコードを取得
  
-        // 接続切断
+        // 接続切断あ
         $pdo = null;
  
     } function catch (PDOException $e) {

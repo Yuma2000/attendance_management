@@ -13,7 +13,7 @@
             <h1>出欠管理アプリ</h1>
             <div class="guardian-or-childminder">
                 <div>
-                <a href="inputname.php">保護者用</a>
+                <a href="selectchild.php">保護者用</a>
                 </div>
                 <div>
                 <a href="management.php">保育士用</a>

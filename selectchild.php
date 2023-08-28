@@ -1,6 +1,5 @@
 <?php
     try {
- 
         // 接続処理
         $db_user = "sample"; //ユーザー名
         $db_pass = "password"; //パスワード
@@ -15,15 +14,14 @@
             $pdo = new PDO($dsn, $db_user, $db_pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE,
                     PDO::ERRMODE_EXCEPTION);
-    
+
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-            //print "接続しました...<br>";
-        }catch(PDOException $Exception){
+        } catch (PDOException $Exception) {
             die('接続エラー:'.$Exception->getMessage());
         }
- 
+
         // SELECT文を発行
-        $sql = "SELECT * FROM kindergarteners";
+        $sql = "SELECT * FROM children";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $rows = $stmt->fetchAll(); // 全てのレコードを取得
@@ -36,30 +34,25 @@
         die();
     }
 ?>
- 
- 
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>一覧</title>
+    <title>園児一覧</title>
+    <link rel="stylesheet" href="css/selectchild.css">
 </head>
 <body>
     <h3>園児一覧</h3>
-    <table border="1">
+    <table>
         <tr>
             <th>名前</th>
         </tr>
- 
-<?php
-    foreach($rows as $row){
-?>
-        <tr>
-            <td><a href="inputinfo.php?id=<?php print($row['name']) ?>"><?php print($row['name']) ?></a></td>
-        </tr>
-<?php
-    }
-?>
+        <?php foreach($rows as $row): ?>
+            <tr>
+                <td><a href="inputinfo.php?id=<?php echo $row['name'] ?>"><?php echo $row['name'] ?></a></td>
+            </tr>
+        <?php endforeach; ?>
     </table>
 </body>
 </html>

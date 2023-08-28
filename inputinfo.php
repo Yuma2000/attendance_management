@@ -1,3 +1,10 @@
+<?php 
+
+    require_once('./database.php');
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -63,13 +70,13 @@
 
     <?php 
     
-    if(isset($_POST["report"])){
-        //レポートボタンが押された時
-        //report.phpに遷移する
-        header("Location:report.php");
-        unset($_SESSION['レポート']);
-        exit();
-    }
+    // if(isset($_POST["report"])){
+    //     //レポートボタンが押された時
+    //     //report.phpに遷移する
+    //     header("Location:report.php");
+    //     unset($_SESSION['レポート']);
+    //     exit();
+    // }
     ?>
         
        
@@ -77,84 +84,84 @@
 <?php 
 
 
-    if(isset($_POST["regist"])){
-        $name = $_POST['name'];
+    // if(isset($_POST["regist"])){
+    //     $name = $_POST['name'];
 
-        $db_user = "sample"; //ユーザー名
-        $db_pass = "password"; //パスワード
-        $db_host = "localhost"; //ホスト名
-        $db_name = "attendancedb"; //データベース名
-        $db_type = "mysql"; //データベースの種類
+    //     $db_user = "sample"; //ユーザー名
+    //     $db_pass = "password"; //パスワード
+    //     $db_host = "localhost"; //ホスト名
+    //     $db_name = "attendancedb"; //データベース名
+    //     $db_type = "mysql"; //データベースの種類
 
-        //DSN（接続のための決まった情報を決まった順序に組み立てた文字列のこと）の組み立て
-        $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
+    //     //DSN（接続のための決まった情報を決まった順序に組み立てた文字列のこと）の組み立て
+    //     $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
 
-        try{
-            //MySQLに接続
-            $pdo = new PDO($dsn, $db_user, $db_pass);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE,
-                    PDO::ERRMODE_EXCEPTION);
+    //     try{
+    //         //MySQLに接続
+    //         $pdo = new PDO($dsn, $db_user, $db_pass);
+    //         $pdo->setAttribute(PDO::ATTR_ERRMODE,
+    //                 PDO::ERRMODE_EXCEPTION);
 
-            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-            print "接続しました...<br>";
-        }catch(PDOException $Exception){
-            die('接続エラー:'.$Exception->getMessage());
-        }
+    //         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    //         print "接続しました...<br>";
+    //     }catch(PDOException $Exception){
+    //         die('接続エラー:'.$Exception->getMessage());
+    //     }
 
-        try{
+    //     try{
 
-            //入力がない場合、１０が代入される
-            $sori = 10;
+    //         //入力がない場合、１０が代入される
+    //         $sori = 10;
             
-            //フォームに入力された値を取得
-            $day = $_POST['day'];
-            $memo = $_POST['memo'];
+    //         //フォームに入力された値を取得
+    //         $day = $_POST['day'];
+    //         $memo = $_POST['memo'];
 
-            if (!empty($_POST["sori"])) {
+    //         if (!empty($_POST["sori"])) {
 
-                if ($_POST["sori"] == "1" ){
-                    $sori = 1;
-                }else{
-                    $sori = 2;
-                }
+    //             if ($_POST["sori"] == "1" ){
+    //                 $sori = 1;
+    //             }else{
+    //                 $sori = 2;
+    //             }
             
-            }
+    //         }
 
            
             
-            if($sori == 10){
-                print '出席・欠席の欄を選択してください。<br>';
-            }else{
+    //         if($sori == 10){
+    //             print '出席・欠席の欄を選択してください。<br>';
+    //         }else{
 
-                //if($id == null){
-                //    $id = $_POST["id"] + 1;
-                //}
-                $pdo->beginTransaction();
+    //             //if($id == null){
+    //             //    $id = $_POST["id"] + 1;
+    //             //}
+    //             $pdo->beginTransaction();
 
-            // テーブルに登録するINSERT INTO文を変数に格納　VALUESはプレースフォルダーで空の値を入れとく
-            $sql = "INSERT INTO inputtable(day, type, memo, name) VALUES(:day, :sori ,:memo, :name)";
+    //         // テーブルに登録するINSERT INTO文を変数に格納　VALUESはプレースフォルダーで空の値を入れとく
+    //         $sql = "INSERT INTO inputtable(day, type, memo, name) VALUES(:day, :sori ,:memo, :name)";
     
-            $stmh = $pdo->prepare($sql); //値が空のままSQL文をセット
-            $params = array(':day' => $day, ':sori' => $sori, ':memo' => $memo, ':name' => $name); // 挿入する値を配列に格納
-            $stmh->execute($params); //挿入する値が入った変数をexecuteにセットしてSQLを実行
+    //         $stmh = $pdo->prepare($sql); //値が空のままSQL文をセット
+    //         $params = array(':day' => $day, ':sori' => $sori, ':memo' => $memo, ':name' => $name); // 挿入する値を配列に格納
+    //         $stmh->execute($params); //挿入する値が入った変数をexecuteにセットしてSQLを実行
 
             
-            //$stmh->execute();
-            $pdo->commit();
-            print "データを".$stmh->rowCount()."件、挿入しました。<br>";
+    //         //$stmh->execute();
+    //         $pdo->commit();
+    //         print "データを".$stmh->rowCount()."件、挿入しました。<br>";
 
             
             
-            }
-            }catch(PDOException $Exception){
-                $pdo->rollBack();
-                print "エラー：".$Exception->getMessage();
-            }
+    //         }
+    //         }catch(PDOException $Exception){
+    //             $pdo->rollBack();
+    //             print "エラー：".$Exception->getMessage();
+    //         }
 
             
             
                 
-    }
+    // }
 
 
 

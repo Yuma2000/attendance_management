@@ -1,13 +1,22 @@
-<?php 
-
-    require_once('./database.php');
-
-?>
-
-
-
 <?php
-    try {
+
+class Database{
+
+    // function connect(){
+    //             $dsn = 'mysql:dbname=attendance_management;host=localhost';
+    //             $user = '';
+    //             $password = '';
+
+    //     try{
+    //         $dbh = new PDO($dsn,$user,$password);
+    //         $dbh -> query('SET NAMES UTF8MB4');
+    //         return $dbh;
+    //     }catch(Exception $e){
+    //         exit($e->getMessage());
+    //     }
+    // }
+
+    function try() {
  
         // 接続処理
         $db_user = "sample"; //ユーザー名
@@ -39,53 +48,11 @@
         // 接続切断
         $pdo = null;
  
-    } catch (PDOException $e) {
+    } function catch (PDOException $e) {
         print $e->getMessage() . "<br/>";
         die();
     }
+
+}
+
 ?>
- 
- 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>一覧</title>
-</head>
-<body>
-    <h3>返信画面</h3>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>日付</th>
-            <th>出欠</th>
-            <th>欠席理由</th>
-            <th>返信</th>
-        </tr>
- 
-<?php
-     $name = $_POST['row'];
-     print $name;
-    foreach($rows as $row){
-?>
-        <tr>
-            <td><?php print($row['id']) ?></td>
-            <td><?php print($row['day']) ?></td>
-            
-            
-            <td><?php if($row['type']==1){
-                print "出席";
-            }else{
-                print "欠席";
-            } ?></td>
-            <td><?php print($row['memo']) ?></td>
-            
-            <td><a href="response.php?id=<?php print($row['id']) ?>">返信</a></td>
-        </tr>
-<?php
-    }
-?>
-    </table>
-    <a href="management.php">管理画面に戻る</a>
-</body>
-</html>

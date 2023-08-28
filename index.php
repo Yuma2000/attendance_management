@@ -1,3 +1,11 @@
+<?php 
+
+    require_once('./database.php');
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -24,23 +32,23 @@
         </form>
     </div>
     <?php 
-    if(isset($_POST["guardian"])){
-        //保護者用ボタンが押された時
-        //inputname.phpに遷移する
-        header("Location:inputinfo.php");
-        unset($_SESSION['保護者用']);
-        exit();
-    }
+    // if(isset($_POST["guardian"])){
+    //     //保護者用ボタンが押された時
+    //     //inputname.phpに遷移する
+    //     header("Location:inputinfo.php");
+    //     unset($_SESSION['保護者用']);
+    //     exit();
+    // }
      ?>
 
 <?php 
-    if(isset($_POST["childminder"])){
-        //保育士用ボタンが押された時
-        //management.phpに遷移する
-        header("Location:management.php");
-        unset($_SESSION['保育士用']);
-        exit();
-    }
+    // if(isset($_POST["childminder"])){
+    //     //保育士用ボタンが押された時
+    //     //management.phpに遷移する
+    //     header("Location:management.php");
+    //     unset($_SESSION['保育士用']);
+    //     exit();
+    // }
      ?>
 </body>
 </html>

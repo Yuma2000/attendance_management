@@ -1,3 +1,10 @@
+<?php 
+
+    require_once('./database.php');
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -27,29 +34,29 @@
 
     <?php 
     
-    if(isset($_POST["next"])){
-        //レポートボタンが押された時
-        if($_POST["name"] == "あいうえお"){
-            //inputinfo.phpに遷移する
-            header("Location:inputinfo.php");
-            unset($_SESSION['次へ']);
-            exit();   
-        }else if($_POST["name"] == "まなか"){
-            //inputinfo.phpに遷移する
-            header("Location:inputinfo.php");
-            unset($_SESSION['次へ']);
-            exit();   
+    // if(isset($_POST["next"])){
+    //     //レポートボタンが押された時
+    //     if($_POST["name"] == "あいうえお"){
+    //         //inputinfo.phpに遷移する
+    //         header("Location:inputinfo.php");
+    //         unset($_SESSION['次へ']);
+    //         exit();   
+    //     }else if($_POST["name"] == "まなか"){
+    //         //inputinfo.phpに遷移する
+    //         header("Location:inputinfo.php");
+    //         unset($_SESSION['次へ']);
+    //         exit();   
 
-        }else{
-            print '未登録の生徒です。<br>';
+    //     }else{
+    //         print '未登録の生徒です。<br>';
 
-        }
+    //     }
 
 
 
 
        
-    }
+    // }
     ?>
         
        

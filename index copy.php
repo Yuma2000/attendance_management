@@ -28,23 +28,23 @@
         </form>
     </div>
     <?php
-    if(isset($_POST["guardian"])){
-        //保護者用ボタンが押された時
+    // if(isset($_POST["guardian"])){
+    //     //保護者用ボタンが押された時
     //     //inputname.phpに遷移する
-         header("Location:inputinfo.php");
-         unset($_SESSION['保護者用']);
-         exit();
-    }
-    ?>
+    //     header("Location:inputinfo.php");
+    //     unset($_SESSION['保護者用']);
+    //     exit();
+    // }
+     ?>
 
 <?php
-    if(isset($_POST["childminder"])){
-         //保育士用ボタンが押された時
+    // if(isset($_POST["childminder"])){
+    //     //保育士用ボタンが押された時
     //     //management.phpに遷移する
-        header("Location:management.php");
-        unset($_SESSION['保育士用']);
-        exit();
-    }
+    //     header("Location:management.php");
+    //     unset($_SESSION['保育士用']);
+    //     exit();
+    // }
 ?>
 </body>
 </html>

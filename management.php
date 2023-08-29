@@ -8,8 +8,18 @@ $dotenv->load();
 
 require_once('./database.php');
 
-$database = new Database();
-$records = $database -> all_records();
+$database_present = new Database();
+//recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
+//出席者を取得
+$records_pre = $database_present -> all_records_present();
+
+
+$database_absent = new Database();
+//recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
+//出席者を取得
+$records_ab = $database_absent -> all_records_absent();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -19,24 +29,26 @@ $records = $database -> all_records();
     <title>一覧</title>
 </head>
 <body>
-    <h3>管理画面</h3>
+    <h3>生徒出欠管理画面</h3>
+    <h3>本日の日付： <tr>  <td><?= date('Y/m/d'); ?></td></tr></h3>
+
     <table border="1">
         <tr>
-            <th>日付</th>
-            <th>生徒名</th>
-            <th>出欠状態</th>
-        </tr>
- 
-<?php foreach($records as $record){ ?>
+            <th>出席</th>
+            <?php foreach($records_pre as $records_pre2){ ?>
         <tr>
-            <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
-            <td><a href="response.php?id=<?php print($record['child_id']) ?>" name="sentaku"><?php print($record['child_name']) ?></a></td>
-            <td><?php if($record['status']==1){print '欠席';}else{print '出席';} ?></td>
+            <td><a href="response.php?id=<?php print($records_pre2['child_id']) ?>" name="sentaku"><?php print($records_pre2['child_name']) ?></a></td>
         </tr>
 <?php } ?>
+            <th>欠席</th>
+            <?php foreach($records_ab as $records_ab2){ ?>
+        <tr>
+            <td><a href="response.php?id=<?php print($records_ab2['child_id']) ?>" name="sentaku"><?php print($records_ab2['child_name']) ?></a></td>
+        </tr>
+<?php } ?>
+        
+        </tr>
     </table>
     
-
-
 </body>
 </html>

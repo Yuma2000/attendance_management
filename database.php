@@ -28,6 +28,20 @@ class Database{
         }
     
     }
+  
+    //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する（出席者用）
+    function all_records_present(){
+        $pdo = $this->connect();
+        // $sql = 'SELECT records.*, children.name AS child_name FROM records
+        //         INNER JOIN children ON records.child_id = children.id';
+        $sql = 'SELECT records.*, children.name AS child_name FROM records
+                INNER JOIN children ON records.child_id = children.id WHERE records.status = 1';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $recordsWithPresentChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $recordsWithPresentChildNames;
+    }
 
     //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する（出席者用）
     function all_records_present(){

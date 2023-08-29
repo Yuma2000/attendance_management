@@ -127,7 +127,6 @@ class Database{
         $stmt = $dbh -> prepare('UPDATE replies SET record_id=?,content=?,minder_id=?');
         $stmt -> execute([$input['record_id'],$input['reply_content'],$input['minder']]);
     }
-}
 
     //childrenテーブルのデータを全取得
     public function children(){

@@ -9,6 +9,7 @@
     require_once('./database.php');
 
     $database = new Database();
+    // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
     $records = $database -> find((int)$_GET['id']);
     // // var_dump($records);
 ?>

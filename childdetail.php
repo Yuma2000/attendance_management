@@ -28,6 +28,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>園児詳細</title>
+    <link rel="stylesheet" href="css/childdetail.css">
 </head>
 <body>
 <h2>園児Aの出欠履歴</h2>
@@ -49,8 +50,12 @@ try {
     <textarea id="reason" name="reason" rows="4" cols="50" placeholder="欠席理由を入力..."></textarea>
     <br><br>
 
-    <input type="submit" value="送信">
-</form>
+<label for="date">日付</label>
+<input>
+
+
+<h2><?php echo htmlspecialchars($child['name']); ?>の出欠履歴</h2>
+
 
 <table border="1">
     <tr>

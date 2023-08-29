@@ -5,21 +5,13 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $db = new Database();
-$pdo = $db->connect();
 
-try {
-    // 子供の名前を取得
-    $id = $_GET['id'];
-    $stmt = $pdo->prepare("SELECT name FROM children WHERE id = ?");
-    $stmt->execute([$id]);
-    $child = $stmt->fetch();
+$id = $_GET['id'];
+$childName = $db->getChildName($id);
 
-    // 接続切断
-    $pdo = null;
-} catch (PDOException $e) {
-    print $e->getMessage() . "<br/>";
-    die();
-}
+// 出欠履歴をDBから取得
+
+// 日付、出席or欠席、欠席理由をDBに登録
 
 ?>
 
@@ -30,7 +22,7 @@ try {
     <title>園児詳細</title>
 </head>
 <body>
-<h2>園児Aの出欠履歴</h2>
+<h2><?= htmlspecialchars($childName, ENT_QUOTES) ?>の出欠履歴</h2>
 <form action="childdetail.php" method="post">
     <!-- 日付選択 -->
     <label for="date">日付:</label>

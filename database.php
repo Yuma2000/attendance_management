@@ -43,6 +43,18 @@ class Database{
         return $recordsWithPresentChildNames;
     }
 
+    //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する（出席者用）
+    function all_records_present(){
+        $pdo = $this->connect();
+        $sql = 'SELECT records.*, children.name AS child_name FROM records
+                INNER JOIN children ON records.child_id = children.id WHERE records.status = 1';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $recordsWithPresentChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $recordsWithPresentChildNames;
+    }
+
     //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する（欠席者用）
     function all_records_absent(){
         $pdo = $this->connect();
@@ -69,6 +81,19 @@ class Database{
         
         return $result;
     }
+
+    //childrenテーブルのデータを全取得
+    function children(){
+        $pdo = $this->connect();
+        $sql = 'SELECT * FROM children';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $childrenNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $childrenNames;
+    }
+
+    
 }
 
 ?>

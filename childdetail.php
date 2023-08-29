@@ -28,6 +28,7 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <a href="selectchild.php">園児一覧へ戻る</a>
     <title>園児詳細</title>
     <link rel="stylesheet" href="css/childdetail.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 <body>
 
@@ -99,8 +100,8 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <tr>
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
             <td><?php if ($record['status'] == 2){
-                    print '欠席';
-                }else{print '出席';}?></td>
+                    echo '<i class="fas fa-times fa-2x" style="color: #ff4d4d;"></i>';
+                }else{echo '<i class="far fa-circle fa-2x" style="color: #62f973;"></i>';}?></td>
             <td><?= $record['absence_reason']; ?></td>
             <td><?= $record['reply_content'] ?><br><?= $record['childminder_name'] ?></td>
         </tr>

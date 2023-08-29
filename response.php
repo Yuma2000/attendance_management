@@ -38,7 +38,7 @@
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
             
             
-            <td><?php if ($record['status'] == 1){
+            <td><?php if ($record['status'] == 2){
                     print '欠席';
                 }else{print '出席';}?></td>
             <td><?= $record['absence_reason']; ?></td>

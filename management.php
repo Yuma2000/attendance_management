@@ -16,7 +16,7 @@ $records_pre = $database_present -> all_records_present();
 
 $database_absent = new Database();
 //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
-//出席者を取得
+//欠席者を取得
 $records_ab = $database_absent -> all_records_absent();
 
 

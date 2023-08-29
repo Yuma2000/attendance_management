@@ -1,11 +1,10 @@
 <?php
     try {
-        // 接続処理
-        $db_user = "sample"; //ユーザー名
-        $db_pass = "password"; //パスワード
-        $db_host = "localhost"; //ホスト名
-        $db_name = "attendance_managementdb"; //データベース名
-        $db_type = "mysql"; //データベースの種類
+        $db_user = "sample";
+        $db_pass = "password";
+        $db_host = "localhost";
+        $db_name = "attendance_managementdb";
+        $db_type = "mysql";
 
         //DSN（接続のための決まった情報を決まった順序に組み立てた文字列のこと）の組み立て
         $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
@@ -28,7 +27,6 @@
  
         // 接続切断
         $pdo = null;
- 
     } catch (PDOException $e) {
         print $e->getMessage() . "<br/>";
         die();
@@ -50,7 +48,7 @@
         </tr>
         <?php foreach($rows as $row): ?>
             <tr>
-                <td><a href="inputinfo.php?id=<?php echo $row['name'] ?>"><?php echo $row['name'] ?></a></td>
+                <td><a href="childdetail.php?id=<?php echo $row['id'] ?>"><?php echo $row['name'] ?></a></td>
             </tr>
         <?php endforeach; ?>
     </table>

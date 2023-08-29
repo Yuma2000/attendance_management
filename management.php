@@ -27,6 +27,7 @@ $records_ab = $database_absent -> all_records_absent();
 <head>
     <meta charset="UTF-8">
     <title>一覧</title>
+    <link rel="stylesheet" href="css/management.css">
 </head>
 <body>
     <h3>生徒出欠管理画面</h3>

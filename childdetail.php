@@ -1,43 +1,18 @@
 <?php
-require_once 'vendor/autoload.php'; // Composer のオートロードファイルを読み込む
-use Dotenv\Dotenv;
-
-// .env ファイルを読み込む
-$dotenv = Dotenv::createImmutable(__DIR__);
+require_once 'database.php';
+require_once __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+$db = new Database();
+$pdo = $db->connect();
+
 try {
-    $db_user = $_ENV['DB_USER']; //ユーザー名
-    $db_pass = $_ENV['DB_PASSWORD']; //パスワード
-    $db_host = $_ENV['DB_HOST']; //ホスト名
-    $db_name = $_ENV['DB_NAME']; //データベース名
-    $db_type = $_ENV['DB_TYPE']; //データベースの種類
-
-    //DSN（接続のための決まった情報を決まった順序に組み立てた文字列のこと）の組み立て
-    $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
-    try{
-        //MySQLに接続
-        $pdo = new PDO($dsn, $db_user, $db_pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE,
-                PDO::ERRMODE_EXCEPTION);
-        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    } catch (PDOException $Exception) {
-        die('接続エラー:'.$Exception->getMessage());
-    }
-
     // 子供の名前を取得
     $id = $_GET['id'];
     $stmt = $pdo->prepare("SELECT name FROM children WHERE id = ?");
     $stmt->execute([$id]);
     $child = $stmt->fetch();
-
-    // 現在の月の日数を取得
-    $daysInMonth = date('t');
-
-    // その月の出欠履歴をデータベースから取得
-    $stmt = $pdo->prepare("SELECT date, status, absence_reason FROM records WHERE child_id = ? AND MONTH(date) = MONTH(CURRENT_DATE())");
-    $stmt->execute([$id]);
-    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // 接続切断
     $pdo = null;
@@ -55,30 +30,35 @@ try {
     <title>園児詳細</title>
 </head>
 <body>
+<h2>園児Aの出欠履歴</h2>
+<form action="childdetail.php" method="post">
+    <!-- 日付選択 -->
+    <label for="date">日付:</label>
+    <input type="date" id="date" name="date" required>
+    <br><br>
 
-<h2><?php echo htmlspecialchars($child['name']); ?>の出欠履歴</h2>
+    <!-- 出席/欠席選択 -->
+    <input type="radio" id="attendance" name="status" value="出席" required>
+    <label for="attendance">出席</label>
+    <input type="radio" id="absence" name="status" value="欠席">
+    <label for="absence">欠席</label>
+    <br><br>
+
+    <!-- 欠席理由（欠席を選択した場合のみ入力） -->
+    <label for="reason">欠席理由:</label>
+    <textarea id="reason" name="reason" rows="4" cols="50" placeholder="欠席理由を入力..."></textarea>
+    <br><br>
+
+    <input type="submit" value="送信">
+</form>
 
 <table border="1">
     <tr>
         <th>日付</th>
         <th>出欠</th>
         <th>欠席理由</th>
+        <th>返信</th>
     </tr>
-    <?php
-    for ($i = 1; $i <= $daysInMonth; $i++) {
-        $date = date('Y-m') . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
-        $record = array_filter($records, function($r) use ($date) {
-            return $r['date'] === $date;
-        });
-        $record = reset($record);
-        
-        echo "<tr>";
-        echo "<td>" . $i . "</td>";
-        echo "<td>" . ($record['status'] ?? '') . "</td>";
-        echo "<td>" . ($record['absence_reason'] ?? '') . "</td>";
-        echo "</tr>";
-    }
-    ?>
 </table>
 
 </body>

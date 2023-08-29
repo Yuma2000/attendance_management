@@ -1,48 +1,15 @@
 <?php 
+require_once 'vendor/autoload.php'; // Composer のオートロードファイルを読み込む
+use Dotenv\Dotenv;
 
-    require_once('./database.php');
+// .env ファイルを読み込む
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-?>
+require_once('./database.php');
 
-
-
-<?php
-    // try {
- 
-    //     // 接続処理
-    //     $db_user = "sample"; //ユーザー名
-    //     $db_pass = "password"; //パスワード
-    //     $db_host = "localhost"; //ホスト名
-    //     $db_name = "attendancedb"; //データベース名
-    //     $db_type = "mysql"; //データベースの種類
-
-    //     //DSN（接続のための決まった情報を決まった順序に組み立てた文字列のこと）の組み立て
-    //     $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
-    //     try{
-    //         //MySQLに接続
-    //         $pdo = new PDO($dsn, $db_user, $db_pass);
-    //         $pdo->setAttribute(PDO::ATTR_ERRMODE,
-    //                 PDO::ERRMODE_EXCEPTION);
-    
-    //         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    //         //print "接続しました...<br>";
-    //     }catch(PDOException $Exception){
-    //         die('接続エラー:'.$Exception->getMessage());
-    //     }
- 
-    //     // SELECT文を発行
-    //     $sql = "SELECT * FROM inputtable";
-    //     $stmt = $pdo->prepare($sql);
-    //     $stmt->execute();
-    //     $rows = $stmt->fetchAll(); // 全てのレコードを取得
- 
-    //     // 接続切断
-    //     $pdo = null;
- 
-    // } catch (PDOException $e) {
-    //     print $e->getMessage() . "<br/>";
-    //     die();
-    // }
+$database = new Database();
+$records = $database -> all_records();
 ?>
 
 <!DOCTYPE html>
@@ -55,25 +22,18 @@
     <h3>管理画面</h3>
     <table border="1">
         <tr>
+            <th>日付</th>
             <th>生徒名</th>
             <th>出欠状態</th>
-            <th>選択</th>
         </tr>
  
-<?php
-
-    // foreach($rows as $row){
-?>
+<?php foreach($records as $record){ ?>
         <tr>
-            <td><?php print($row['name']) ?></td>
-            <td><?php if($row['type']==1){print '出席';}else{print '欠席';} ?></td>
-        
-            
-            <td><a href="response.php?id=<?php print($row['id']) ?>" name="sentaku"><?php print($row['name']) ?>さんを選択</a></td>
+            <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
+            <td><a href="response.php?id=<?php print($record['child_id']) ?>" name="sentaku"><?php print($record['child_name']) ?></a></td>
+            <td><?php if($record['status']==1){print '欠席';}else{print '出席';} ?></td>
         </tr>
-<?php
-    // }
-?>
+<?php } ?>
     </table>
     
 

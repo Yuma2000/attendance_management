@@ -53,10 +53,12 @@ class Database{
      */
     public function all_records_present(){
         $pdo = $this->connect();
+        $currentDate = date('Y-m-d');
         $sql = 'SELECT records.*, children.name AS child_name FROM records
-                INNER JOIN children ON records.child_id = children.id WHERE records.status = 1';
+                INNER JOIN children ON records.child_id = children.id 
+                WHERE records.status = 1 AND DATE(records.date) = ?';
         $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([$currentDate]);
         $recordsWithPresentChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         return $recordsWithPresentChildNames;
@@ -67,10 +69,12 @@ class Database{
      */
     public function all_records_absent(){
         $pdo = $this->connect();
+        $currentDate = date('Y-m-d');
         $sql = 'SELECT records.*,children.id AS child_id, children.name AS child_name FROM records
-                INNER JOIN children ON records.child_id = children.id WHERE records.status = 2';
+                INNER JOIN children ON records.child_id = children.id
+                WHERE records.status = 2 AND DATE(records.date) = ?';
         $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([$currentDate]);
         $recordsWithAbsentChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         return $recordsWithAbsentChildNames;
@@ -81,16 +85,13 @@ class Database{
      */
     public function find($id){
         $dbh = $this->connect();
-        
-        // $sql = 'SELECT records.*, children.name AS child_name FROM records
-        //         INNER JOIN children ON records.child_id = children.id
-        //         WHERE records.child_id = ?';
         $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, childminders.name AS childminder_name
         FROM records
         INNER JOIN children ON records.child_id = children.id
         LEFT JOIN replies ON records.id = replies.record_id
         LEFT JOIN childminders ON replies.minder_id = childminders.id
-        WHERE records.child_id = ?';
+        WHERE records.child_id = ?
+        ORDER BY records.date DESC'; //日付が最新の順に表示
     
         $stmt = $dbh->prepare($sql);
         $stmt->execute([$id]);

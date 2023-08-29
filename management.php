@@ -33,7 +33,7 @@ $records_ab = $database_absent -> all_records_absent();
     <h3>生徒出欠管理画面</h3>
     <h3>本日の日付： <tr>  <td><?= date('Y/m/d'); ?></td></tr></h3>
 
-    <table border="1">
+    <table>
         <tr>
             <th>出席</th>
             <?php foreach($records_pre as $records_pre2){ ?>

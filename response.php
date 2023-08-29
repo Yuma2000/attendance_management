@@ -42,7 +42,7 @@
                 }else{print '出席';}?></td>
             <td><?= $record['absence_reason']; ?></td>
             
-            <td><a href="">返信</a></td>
+            <td><a href="reply.php?id=<?php $record['id'] ?>">返信</a></td>
         </tr>
         <?php } ?>
     </table>

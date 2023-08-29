@@ -43,14 +43,12 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </form>
 
         <?php
-            $status = 2;//出欠状態の初期値
-            $absence_reason = null;  //初期値としてNULLを設定
+            $status = 2;  // 出欠状態の初期値
+            $absence_reason = null;  // 初期値としてNULLを設定
 
             if(isset($_POST['status'])) {
                 $status = $_POST['status'];
-                //echo '現在の登録：' . $status . '<br>';
-                $database_attendance = new Database();
-                $record = $database_attendance->record($child_id,$status,$absence_reason);
+                $record = $db->record($id, $status, $absence_reason);
             }
 
             if ($status == 1){
@@ -73,7 +71,7 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if (empty($_POST['absence_reason'])) {
                     echo '欠席理由が入力されていません．<br>';
                 } elseif (!empty($_POST['absence_reason'])) {
-                    $record = $db->record($child_id,$status,$absence_reason);
+                    $record = $db->record($id,$status,$absence_reason);
                     echo '欠席理由が送信されました．<br>';
                 }
             

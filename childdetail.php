@@ -5,15 +5,15 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $db = new Database();
+$pdo = $db->connect();
 
 $id = $_GET['id'];
 $child_name = $db->getChildName($id);
 
-// 出欠履歴をDBから取得
-
 // その月の出欠履歴をデータベースから取得
-$stmt = $pdo->prepare("SELECT date, status, absence_reason FROM records WHERE child_id = ? AND MONTH(date) = MONTH(CURRENT_DATE())");
-$stmt->execute([$child_id]);
+$sql = "SELECT date, status, absence_reason FROM records WHERE child_id = ? AND MONTH(date) = MONTH(CURRENT_DATE())";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$id]);
 $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>

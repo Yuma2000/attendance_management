@@ -25,16 +25,17 @@
 </head>
 <body>
     <h3>返信画面</h3>
-    <table border="1">
+    <table>
         <tr>
             <th>園児名</th>
             <th>日付</th>
             <th>出欠</th>
             <th>欠席理由</th>
             <th>欠席に対する返信</th>
+            <th></th>
         </tr>
 
-        <?php foreach($records as $record){ ?>
+        <?php foreach($records as $index => $record){ ?>
         <tr>
             <td><?= $record['child_name']; ?></td>
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
@@ -56,10 +57,23 @@
                 </td>
             <?php endif ?>
         </tr>
+        <?php if($index === 0): ?>
+    </table>
+            <div class="return_managrment">
+                <a href="management.php">管理画面に戻る</a>
+            </div>
+            <h3>過去の出席履歴</h3>
+    <table>
+        <tr>
+            <th>園児名</th>
+            <th>日付</th>
+            <th>出欠</th>
+            <th>欠席理由</th>
+            <th>欠席に対する返信</th>
+        </tr>
+        <?php endif ?>
         <?php } ?>
     </table>
-    <div class="return_managrment">
-    <a href="management.php">管理画面に戻る</a>
-    </div>
+
 </body>
 </html>

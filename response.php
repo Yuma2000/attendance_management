@@ -21,6 +21,7 @@
 <head>
     <meta charset="UTF-8">
     <title>一覧</title>
+    <link rel="stylesheet" href="css/response.css">
 </head>
 <body>
     <h3>返信画面</h3>
@@ -57,7 +58,8 @@
         </tr>
         <?php } ?>
     </table>
+    <div class="return_managrment">
     <a href="management.php">管理画面に戻る</a>
-
+    </div>
 </body>
 </html>

@@ -29,11 +29,14 @@ class Database{
     
     }
 
-    //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
+    //今日のrecordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
     function all_records(){
         $pdo = $this->connect();
+        // $sql = 'SELECT records.*, children.name AS child_name FROM records
+        //         INNER JOIN children ON records.child_id = children.id';
         $sql = 'SELECT records.*, children.name AS child_name FROM records
-                INNER JOIN children ON records.child_id = children.id';
+                INNER JOIN children ON records.child_id = children.id
+                WHERE DATE(records.date) = CURDATE()';
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $recordsWithChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);

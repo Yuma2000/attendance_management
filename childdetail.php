@@ -59,7 +59,6 @@ try {
         <th>欠席理由</th>
         <th>返信</th>
     </tr>
-
 </table>
 
 </body>

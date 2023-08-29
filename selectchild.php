@@ -1,36 +1,17 @@
 <?php
-    try {
-        $db_user = "sample";
-        $db_pass = "password";
-        $db_host = "localhost";
-        $db_name = "attendance_managementdb";
-        $db_type = "mysql";
+    require_once 'vendor/autoload.php'; // Composer のオートロードファイルを読み込む
+    use Dotenv\Dotenv;
 
-        //DSN（接続のための決まった情報を決まった順序に組み立てた文字列のこと）の組み立て
-        $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
-        try{
-            //MySQLに接続
-            $pdo = new PDO($dsn, $db_user, $db_pass);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE,
-                    PDO::ERRMODE_EXCEPTION);
+    // .env ファイルを読み込む
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
 
-            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        } catch (PDOException $Exception) {
-            die('接続エラー:'.$Exception->getMessage());
-        }
+    require_once('./database.php');
 
-        // SELECT文を発行
-        $sql = "SELECT * FROM children";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $rows = $stmt->fetchAll(); // 全てのレコードを取得
- 
-        // 接続切断
-        $pdo = null;
-    } catch (PDOException $e) {
-        print $e->getMessage() . "<br/>";
-        die();
-    }
+    $database = new Database();
+    // childrenテーブルの全カラムの値を取得
+    $rows = $database -> children();
+    // // var_dump($records);
 ?>
 
 <!DOCTYPE html>

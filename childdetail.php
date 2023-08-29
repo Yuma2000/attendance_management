@@ -41,10 +41,10 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h3>出欠状況の登録</h3>
 
         <form method="post" >
-        <label><input type="radio" name="status" value=1>出席</label><br>
-        <label><input type="radio" name="status" value=2>欠席</label><br>
-        <input type="submit" value="送信"><br>
-        <br>
+            <label><input type="radio" name="status" value=1>出席</label><br>
+            <label><input type="radio" name="status" value=2>欠席</label><br>
+            <input type="submit" value="送信"><br>
+            <br>
         </form>
 
         <?php

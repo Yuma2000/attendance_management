@@ -26,6 +26,9 @@
 </head>
 <body>
     <h3>出欠の詳細</h3>
+    <div class="return_managrment">
+                <a href="management.php">管理画面に戻る</a>
+    </div>
     <table>
         <tr>
             <th>園児名</th>
@@ -60,9 +63,7 @@
         </tr>
         <?php if($index === 0): ?>
     </table>
-            <div class="return_managrment">
-                <a href="management.php">管理画面に戻る</a>
-            </div>
+
             <h3>過去の出席履歴</h3>
     <table>
         <tr>

@@ -65,6 +65,6 @@ insert into childminders values (2, '田村 えりこ');
 insert into childminders values (3, '中野 ゆかり');
 insert into childminders values (4, '山田 みさき');
 
-insert into records values (1, 1, now(), 1, '発熱（38度５分）のためお休みします。');
-insert into records values (2, 11, now(), 1, '体調不良のためお休みします。');
-insert into records values (3, 15, now(), 2,'出席');
+insert into records values (1, 1, now(), 2, '発熱（38度５分）のためお休みします。');
+insert into records values (2, 11, now(), 2, '体調不良のためお休みします。');
+insert into records values (3, 15, now(), 1,'出席');

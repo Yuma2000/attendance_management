@@ -1,10 +1,17 @@
 <?php
+require_once 'vendor/autoload.php'; // Composer のオートロードファイルを読み込む
+use Dotenv\Dotenv;
+
+// .env ファイルを読み込む
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 try {
-    $db_user = "sample";
-    $db_pass = "password";
-    $db_host = "localhost";
-    $db_name = "attendance_managementdb";
-    $db_type = "mysql";
+    $db_user = $_ENV['DB_USER']; //ユーザー名
+    $db_pass = $_ENV['DB_PASSWORD']; //パスワード
+    $db_host = $_ENV['DB_HOST']; //ホスト名
+    $db_name = $_ENV['DB_NAME']; //データベース名
+    $db_type = $_ENV['DB_TYPE']; //データベースの種類
 
     //DSN（接続のための決まった情報を決まった順序に組み立てた文字列のこと）の組み立て
     $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
@@ -28,7 +35,7 @@ try {
     $daysInMonth = date('t');
 
     // その月の出欠履歴をデータベースから取得
-    $stmt = $pdo->prepare("SELECT date, attendance, reason FROM records WHERE child_id = ? AND MONTH(date) = MONTH(CURRENT_DATE())");
+    $stmt = $pdo->prepare("SELECT date, status, absence_reason FROM records WHERE child_id = ? AND MONTH(date) = MONTH(CURRENT_DATE())");
     $stmt->execute([$id]);
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -67,8 +74,8 @@ try {
         
         echo "<tr>";
         echo "<td>" . $i . "</td>";
-        echo "<td>" . ($record['attendance'] ?? '') . "</td>";
-        echo "<td>" . ($record['reason'] ?? '') . "</td>";
+        echo "<td>" . ($record['status'] ?? '') . "</td>";
+        echo "<td>" . ($record['absence_reason'] ?? '') . "</td>";
         echo "</tr>";
     }
     ?>

@@ -67,4 +67,9 @@ insert into childminders values (4, '山田 みさき');
 
 insert into records values (1, 1, now(), 2, '発熱（38度５分）のためお休みします。');
 insert into records values (2, 11, now(), 2, '体調不良のためお休みします。');
-insert into records values (3, 15, now(), 1,'出席');
+insert into records values (3, 15, now(), 1,'');
+insert into records values (4, 15, '2023-08-22', 1,'');
+insert into records values (5, 15, '2023-08-23', 2,'昨晩からの熱で今日は休ませます。');
+insert into records values (6, 15, '2023-08-24', 2,'今日もお休みさせていただきます。');
+insert into records values (7, 15, '2023-08-25', 1,'');
+insert into records values (8, 15, '2023-08-26', 2,'咳が出るので休ませます。');

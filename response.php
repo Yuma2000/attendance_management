@@ -8,10 +8,12 @@
 
     require_once('./database.php');
 
-    $database = new Database();
-    // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
-    $records = $database -> find((int)$_GET['id']);
-    // // var_dump($records);
+    if(empty($records)){
+        $database = new Database();
+        // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
+        $records = $database -> find((int)$_GET['id']);
+    }
+    // var_dump($records);
 ?>
  
 <!DOCTYPE html>
@@ -28,7 +30,7 @@
             <th>日付</th>
             <th>出欠</th>
             <th>欠席理由</th>
-            <th>返信</th>
+            <th>欠席に対する返信</th>
         </tr>
 
         <?php foreach($records as $record){ ?>
@@ -37,15 +39,25 @@
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
             
             
-            <td><?php if ($record['status'] == 1){
+            <td><?php if ($record['status'] == 2){
                     print '欠席';
                 }else{print '出席';}?></td>
             <td><?= $record['absence_reason']; ?></td>
-            
-            <td><a href="reply.php?id=<?php $record['id'] ?>">返信</a></td>
+            <td><?= $record['reply_content'] ?><br><?= $record['childminder_name'] ?></td>
+
+            <?php if($record['status'] == 2): ?>
+                <td>
+                    <?php if(empty($record['reply_content'])): ?>
+                        <a href="./reply.php?id=<?= $record['id']; ?>"><button>返信</button></a>
+                    <?php else: ?>
+                        <a href="./reply_edit.php?id=<?= $record['id']; ?>"><button>編集</button></a>
+                    <?php endif ?>
+                </td>
+            <?php endif ?>
         </tr>
         <?php } ?>
     </table>
     <a href="management.php">管理画面に戻る</a>
+
 </body>
 </html>

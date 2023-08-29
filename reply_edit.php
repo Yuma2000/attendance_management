@@ -15,7 +15,7 @@ if(!empty($_POST)){
     }
 
     $database = new Database();
-    $records = $database->store_reply($_POST);
+    $records = $database->update_reply($_POST);
 
     header('Location: ./management.php');
     exit;
@@ -38,7 +38,7 @@ $record = $database -> find_record((int)$_GET['id']);
 </head>
 <body>
 
-    <h3><?= $record['child_name'] ?>さんへの返信</h3>
+    <h3><?= $record['child_name'] ?>さんへの返信の編集</h3>
         <table border="1">
             <tr>
                 <th>園児名</th>
@@ -58,17 +58,18 @@ $record = $database -> find_record((int)$_GET['id']);
             <form method="POST" action="">
                 <input type="hidden" name="child_id" value="<?= $record['child_id']; ?>">
                 <input type="hidden" name="record_id" value="<?= $record['id']; ?>">
-                <textarea name="reply_content" rows="4" cols="50" placeholder="返信内容を入力してください"></textarea><br>
+                <textarea name="reply_content" rows="4" cols="50" placeholder=""><?= $record['reply_content'] ?></textarea><br>
                 <div>
                     <label>返信者</label>
                     <select name="minder">
+                        <!-- <option value="<?= $record['minder_id'] ?>"></option> -->
                         <option value="1">鈴木 たけし</option>
                         <option value="2">田村 えりこ</option>
                         <option value="3">中野 ゆかり</option>
                         <option value="4">山田 みさき</option>
                     </select>
                 </div>
-                <input type="submit" value="返信">
+                <input type="submit" value="返信内容を編集">
             </form>
 
         </div>

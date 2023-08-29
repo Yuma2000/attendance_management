@@ -17,6 +17,7 @@ $records = $database -> all_records();
 <head>
     <meta charset="UTF-8">
     <title>一覧</title>
+    <link rel="stylesheet" href="css/management.css">
 </head>
 <body>
     <h3>管理画面</h3>

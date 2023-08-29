@@ -46,8 +46,13 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>園児詳細</title>
+    <link rel="stylesheet" href="css/childdetail.css">
 </head>
 <body>
+
+<label for="date">日付</label>
+<input>
+
 
 <h2><?php echo htmlspecialchars($child['name']); ?>の出欠履歴</h2>
 

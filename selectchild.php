@@ -1,7 +1,7 @@
 <?php
     try {
-        $db_user = "sample";
-        $db_pass = "password";
+        $db_user = "root";
+        $db_pass = "root";
         $db_host = "localhost";
         $db_name = "attendance_managementdb";
         $db_type = "mysql";

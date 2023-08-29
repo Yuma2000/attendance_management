@@ -1,17 +1,14 @@
 <?php
+    require_once 'database.php';
     require_once 'vendor/autoload.php'; // Composer のオートロードファイルを読み込む
     use Dotenv\Dotenv;
 
-    // .env ファイルを読み込む
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 
-    require_once('./database.php');
-
     $database = new Database();
     // childrenテーブルの全カラムの値を取得
-    $rows = $database -> children();
-    // // var_dump($records);
+    $rows = $database->children();
 ?>
 
 <!DOCTYPE html>

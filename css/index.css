@@ -1,21 +1,49 @@
-/* 仮完成 */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #c3d7ea;
     margin: 0;
     padding: 0;
 }
 
-.signin {
+header {
+    background-color: #84aec9;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.header-link:hover {
+    opacity: 0.8;
+}
+
+.signin, .intro, .contact-info, .news {
     max-width: 400px;
-    margin: 50px auto;
+    margin: 20px auto;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #0072B5;
@@ -26,7 +54,8 @@ h1 {
     justify-content: space-between;
 }
 
-input[type="submit"] {
+.btn-link, .header-link {
+    display: inline-block;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -34,9 +63,72 @@ input[type="submit"] {
     transition: background-color 0.3s;
     background-color: #E0F7FA; /* 優しいパステルブルー */
     color: #0072B5;
+    text-decoration: none;
+    text-align: center;
 }
 
-input[type="submit"]:hover {
-    background-color: #0072B5;
+.btn-link:hover, .header-link:hover {
+    background-color: #1978af;
     color: #ffffff;
+}
+
+.news {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.news ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.news li a {
+    color: #0072B5;
+    text-decoration: none;
+}
+
+.news li a:hover {
+    text-decoration: underline;
+}
+
+.official-site {
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px 0;
+}
+
+.official-site a {
+    color: #0072B5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.official-site a:hover {
+    text-decoration: underline;
+}
+
+
+footer {
+    padding: 10px 0;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+footer a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #0072B5;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.contact-info {
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 10px;
 }

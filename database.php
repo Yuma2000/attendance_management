@@ -53,12 +53,10 @@ class Database{
      */
     public function all_records_present(){
         $pdo = $this->connect();
-        $currentDate = date('Y-m-d');
         $sql = 'SELECT records.*, children.name AS child_name FROM records
-                INNER JOIN children ON records.child_id = children.id 
-                WHERE records.status = 1 AND DATE(records.date) = ?'; //今日の日付のデータのみ取得
+                INNER JOIN children ON records.child_id = children.id WHERE records.status = 1 AND records.date = CURDATE()';
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$currentDate]);
+        $stmt->execute();
         $recordsWithPresentChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         return $recordsWithPresentChildNames;
@@ -69,28 +67,50 @@ class Database{
      */
     public function all_records_absent(){
         $pdo = $this->connect();
-        $currentDate = date('Y-m-d');
         $sql = 'SELECT records.*,children.id AS child_id, children.name AS child_name FROM records
-                INNER JOIN children ON records.child_id = children.id
-                WHERE records.status = 2 AND DATE(records.date) = ?'; //今日の日付のデータのみ取得
+                INNER JOIN children ON records.child_id = children.id WHERE records.status = 2 AND records.date = CURDATE()';
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$currentDate]);
+        $stmt->execute();
         $recordsWithAbsentChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         return $recordsWithAbsentChildNames;
     }
-
+  
+    /* （未提出者を抽出する） */
+    public function all_records_yet(){
+        $currentDate = date("Y-m-d");//日付の取得
+        $pdo = $this->connect();
+        $sql = 'SELECT children.id AS child_id, children.name AS child_name 
+                FROM children 
+                WHERE NOT EXISTS 
+                (
+                    SELECT 1
+                    FROM records yet
+                    WHERE yet.child_id = children.id AND yet.date = CURDATE()
+                )';
     
-    // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $childrenWithoutRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $childrenWithoutRecords;
+    }
+    
+
+    /**
+     * recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
+     */
     public function find($id){
         $dbh = $this->connect();
+        
+        // $sql = 'SELECT records.*, children.name AS child_name FROM records
+        //         INNER JOIN children ON records.child_id = children.id
+        //         WHERE records.child_id = ?';
         $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, childminders.name AS childminder_name
         FROM records
         INNER JOIN children ON records.child_id = children.id
         LEFT JOIN replies ON records.id = replies.record_id
         LEFT JOIN childminders ON replies.minder_id = childminders.id
-        WHERE records.child_id = ?
-        ORDER BY records.date DESC'; //日付が最新の順に表示
+        WHERE records.child_id = ?';
     
         $stmt = $dbh->prepare($sql);
         $stmt->execute([$id]);
@@ -147,8 +167,9 @@ class Database{
         $stmt -> execute([$input['record_id'],$input['reply_content'],$input['minder']]);
     }
 
+
     //childrenテーブルのデータを全取得
-    public function children(){
+    function children(){
         $pdo = $this->connect();
         $sql = 'SELECT id, name FROM children';
         $stmt = $pdo->prepare($sql);
@@ -164,8 +185,7 @@ class Database{
      * @param int $id 園児のID
      * @return string|null 園児の名前、または該当する園児が存在しない場合はnull
      */
-    public function getChildName($id)
-    {
+    public function getChildName($id){
         try {
             $pdo = $this->connect();
             $sql = 'SELECT name FROM children WHERE id = :id';
@@ -179,3 +199,4 @@ class Database{
         }
     }
 }
+

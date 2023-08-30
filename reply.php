@@ -35,11 +35,13 @@ $record = $database -> find_record((int)$_GET['id']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>返信</title>
+    <link rel="stylesheet" href="css/reply.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 <body>
-
+    <div class="all">
     <h3><?= $record['child_name'] ?>さんへの返信</h3>
-        <table border="1">
+        <table >
             <tr>
                 <th>園児名</th>
                 <th>日付</th>
@@ -54,25 +56,43 @@ $record = $database -> find_record((int)$_GET['id']);
                 <th><?= $record['absence_reason'] ?></th>
             </tr>
         </table>
-        <div>
+        <div class="reply_all">
             <form method="POST" action="">
+            <div class="reply_childminders">
+                <label class="reply_people">返信者</label>
+                <select name="minder">
+                    <option value="1">鈴木 たけし</option>
+                    <option value="2">田村 えりこ</option>
+                    <option value="3">中野 ゆかり</option>                        
+                    <option value="4">山田 みさき</option>
+                </select>
+            </div>
+            <div class="reply_content">
                 <input type="hidden" name="child_id" value="<?= $record['child_id']; ?>">
                 <input type="hidden" name="record_id" value="<?= $record['id']; ?>">
-                <textarea name="reply_content" rows="4" cols="50" placeholder="返信内容を入力してください"></textarea><br>
-                <div>
-                    <label>返信者</label>
-                    <select name="minder">
-                        <option value="1">鈴木 たけし</option>
-                        <option value="2">田村 えりこ</option>
-                        <option value="3">中野 ゆかり</option>
-                        <option value="4">山田 みさき</option>
-                    </select>
-                </div>
-                <input type="submit" value="返信">
+                <textarea name="reply_content" rows="2" cols="60" placeholder="返信内容を入力してください"></textarea><br>
+                
+            </div>
+
+            <div class="button_position">
+            <input type="submit" value="返信" class="button">
+            </div >
+
+            
+            
             </form>
+            
         </div>
+        
+
         <div class="return_managrment">
             <a href="management.php">管理画面に戻る</a>
-        </div>
+        </div>    
+       
+    </div>
+    
+
+             
+        
 </body>
 </html>

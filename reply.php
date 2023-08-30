@@ -41,7 +41,7 @@ $record = $database -> find_record((int)$_GET['id']);
 <body>
     <div class="all">
     <h3><?= $record['child_name'] ?>さんへの返信</h3>
-        <table >
+        <table>
             <tr>
                 <th>園児名</th>
                 <th>日付</th>
@@ -86,7 +86,7 @@ $record = $database -> find_record((int)$_GET['id']);
         
 
         <div class="return_managrment">
-            <a href="management.php">管理画面に戻る</a>
+            <a href="management.php" class="link">管理画面に戻る</a>
         </div>    
        
     </div>

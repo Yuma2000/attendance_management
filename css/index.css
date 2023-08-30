@@ -34,6 +34,11 @@ header {
     opacity: 0.8;
 }
 
+.content {
+    max-width: 95%;
+    margin: 0 auto;
+}
+
 .signin, .intro, .contact-info, .news {
     max-width: 400px;
     margin: 20px auto;
@@ -131,4 +136,35 @@ footer a:hover {
     font-size: 0.9em;
     text-align: center;
     margin-top: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .header-inner {
+        padding: 0 10px;
+    }
+
+    .signin, .intro, .contact-info, .news {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    .guardian-or-childminder {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-link {
+        margin: 5px 0;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    h1, h2 {
+        font-size: 1.2em;
+    }
+
+    .contact-info {
+        font-size: 0.8em;
+    }
 }

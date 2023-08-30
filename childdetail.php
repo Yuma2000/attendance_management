@@ -63,6 +63,7 @@ if(!empty($_POST)){
                         <label for="absence_reason"></label>
                         <textarea id="absence_reason" name="absence_reason" cols="50" rows="10"></textarea>
                     </div>
+                    <div id="errorContainer" style="color: red;"></div> <!-- エラーメッセージ表示用のコンテナ -->
                 </div>
                 <input type="submit" value="送信"><br>
             </form>
@@ -143,6 +144,18 @@ if(!empty($_POST)){
 
         attendanceForm.addEventListener('submit', async function(event) {
             event.preventDefault(); // デフォルトのフォーム送信を防ぐ
+
+            const statusInput = document.querySelector('input[name="status"]:checked');
+            const absenceReasonInput = document.getElementById('absence_reason');
+
+            // バリデーション: 欠席が選択されている場合、欠席理由が入力されているか確認
+            if (statusInput && statusInput.value === '2' && !absenceReasonInput.value.trim()) {
+                errorContainer.textContent = '欠席理由を入力してください。';
+                return;
+            }
+
+            // エラーメッセージをクリア
+            errorContainer.textContent = '';
 
             const formData = new FormData(attendanceForm);
 

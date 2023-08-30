@@ -16,16 +16,20 @@ table {
     max-width: 600px;
     margin: 30px auto;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-collapse: collapse;
+    border-spacing: 0;
     width: 100%;
+    border:none;
 }
 
 th, td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+   
 }
 
 tr:hover {
@@ -36,6 +40,7 @@ td a {
     text-decoration: none;
     color: #0072B5;
     transition: color 0.3s;
+  
 }
 
 td a:hover {

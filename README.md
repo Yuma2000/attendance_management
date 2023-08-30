@@ -16,9 +16,10 @@
   1. .envファイルの作成<br>
      .envファイルとはデータベースの接続の際に必要な情報を入力するファイルである。<br>
      最初に以下のコマンドをターミナルで実行する。<br>
-     - composer require vlucas/phpdotenv <br>
-     - composer dump-autoload <br>
-     
+     ```
+     composer require vlucas/phpdotenv
+     composer dump-autoload
+     ```
      次に、.envファイルを作成する。
   .envファイルの入力項目としては、ホスト名、ユーザー名、パスワード、データベース名、データベース管理システム（DBMS）名となる。attendance_managementファイル内にある「.env-sample」ファイルを基に「.env」ファイルを作成することを推奨する。
      

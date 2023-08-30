@@ -75,7 +75,7 @@ class Database{
         
         return $recordsWithAbsentChildNames;
     }
-
+  
     /* （未提出者を抽出する） */
     public function all_records_yet(){
         $currentDate = date("Y-m-d");//日付の取得
@@ -119,9 +119,8 @@ class Database{
         return $result;
     }
 
-    /**
-     * 指定された年と月に対応する、child_idの園児の出欠記録データと関連する情報を取得
-     */
+
+    // 指定された年と月に対応する、child_idの園児の出欠記録データと関連する情報を取得
     public function findMonthlyRecords($child_id, $year, $month){
         $dbh = $this->connect();
         $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, childminders.name AS childminder_name

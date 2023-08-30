@@ -80,9 +80,8 @@ class Database{
         return $recordsWithAbsentChildNames;
     }
 
-    /**
-     * recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
-     */
+    
+    // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
     public function find($id){
         $dbh = $this->connect();
         $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, childminders.name AS childminder_name
@@ -100,9 +99,8 @@ class Database{
         return $result;
     }
 
-    /**
-     * 指定された年と月に対応する、child_idの園児の出欠記録データと関連する情報を取得
-     */
+
+    // 指定された年と月に対応する、child_idの園児の出欠記録データと関連する情報を取得
     public function findMonthlyRecords($child_id, $year, $month){
         $dbh = $this->connect();
         $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, childminders.name AS childminder_name

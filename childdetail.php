@@ -86,13 +86,13 @@ if(!empty($_POST)){
     </table>
 
     <!-- 出欠履歴 -->
-    <h3><?php echo htmlspecialchars($childName); ?>の出欠履歴</h3>
+    <h3><?php echo htmlspecialchars($childName); ?>の<?=$selectedYear?>年<?=$selectedMonth?>月の出欠履歴</h3>
     <div class="pagination">
         <div>
-            <a href="childdetail.php?id=<?=$child_id?>&year=<?=$prevYear?>&month=<?=$prevMonth?>">前月</a>
+            <a href="childdetail.php?id=<?=$child_id?>&year=<?=$prevYear?>&month=<?=$prevMonth?>"><?=$prevYear?>年<?=$prevMonth?>月</a>
         </div>
         <div>
-        <a href="childdetail.php?id=<?=$child_id?>&year=<?=$nextYear?>&month=<?=$nextMonth?>">次月</a>
+        <a href="childdetail.php?id=<?=$child_id?>&year=<?=$nextYear?>&month=<?=$nextMonth?>"><?=$nextYear?>年<?=$nextMonth?>月</a>
         </div>
     </div>
     <table>
@@ -127,14 +127,14 @@ if(!empty($_POST)){
             }
         });
 
-    absenceRadio.addEventListener('change', function() {
-        if (this.checked) {
-            absenceReasonForm.style.display = 'block'; // 欠席が選択されたら欠席理由フォームを表示する
-        }
-    });
+        absenceRadio.addEventListener('change', function() {
+            if (this.checked) {
+                absenceReasonForm.style.display = 'block'; // 欠席が選択されたら欠席理由フォームを表示する
+            }
+        });
 
     document.addEventListener('DOMContentLoaded', function() {
-        const attendanceForm = document.getElementById('attendanceForm'); // フォームを取得
+        const attendanceForm = document.getElementById('attendanceForm');
         const absenceReasonForm = document.getElementById('absenceReasonForm');
 
         attendanceForm.addEventListener('submit', async function(event) {
@@ -143,17 +143,15 @@ if(!empty($_POST)){
             const statusInput = document.querySelector('input[name="status"]:checked');
             const absenceReasonInput = document.getElementById('absence_reason');
 
-            // バリデーション: 欠席が選択されている場合、欠席理由が入力されているか確認
+            // 欠席が選択されている場合、欠席理由が入力されているか確認
             if (statusInput && statusInput.value === '2' && !absenceReasonInput.value.trim()) {
                 errorContainer.textContent = '欠席理由を入力してください。';
                 return;
             }
-
             // エラーメッセージをクリア
             errorContainer.textContent = '';
 
             const formData = new FormData(attendanceForm);
-
             try {
                 const response = await fetch(attendanceForm.action, {
                     method: 'POST',
@@ -161,14 +159,13 @@ if(!empty($_POST)){
                 });
 
                 if (response.ok) {
-                    absenceReasonForm.style.display = 'none'; // 欠席理由フォームを非表示にする
+                    absenceReasonForm.style.display = 'none';
                     location.reload();
                 } else {
-                    // エラー処理
+                    console.error(error);
                 }
             } catch (error) {
                 console.error(error);
-                // エラー処理
             }
         });
     });

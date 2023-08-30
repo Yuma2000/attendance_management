@@ -28,24 +28,37 @@ class Database{
         }
     }
 
-    //出欠の登録
-    function record($child_id,$status,$absence_reason){
-        $currentDate = date("Y-m-d");//日付の取得
-        //$randomNumber = rand(1, 20); // 1から20までのランダムな数値を生成
-
-        $pdo = $this->connect();
-        $sql = "INSERT INTO records (child_id, date, status, absence_reason) 
-        VALUES (:child_id, :currentDate, :status, :absence_reason)";
-    
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':child_id', $child_id, PDO::PARAM_INT);//値を実際に挿入する．
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-        $stmt->bindParam(':absence_reason', $absence_reason, PDO::PARAM_STR);
-        $stmt->bindParam(':currentDate', $currentDate,PDO::PARAM_STR);
-        //$stmt->bindParam(':randomNumber', $randomNumber, PDO::PARAM_INT);
-        $stmt->execute();
+    //recordsテーブルのデータの重複を調べる
+    function isDuplicationRecord($child_id, $date){
+        $pdo = $this -> connect();
+        $sql = 'SELECT COUNT(*) FROM records WHERE child_id = :child_id AND date = :date';
+        $stmt = $pdo -> prepare($sql);
+        $stmt -> bindParam(':child_id', $child_id, PDO::PARAM_INT);
+        $stmt -> bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt -> execute();
         
-        return 0;
+        $rowCount = $stmt -> fetchColumn();
+        return $rowCount > 0; //行数が1以上ならtrue,該当する行がなければfalse
+    }
+
+    //出欠の登録
+    function record($input){
+        // $currentDate = date("Y-m-d");//日付の取得
+        // $randomNumber = rand(1, 20); // 1から20までのランダムな数値を生成
+        // $pdo = $this->connect();
+        // $sql = "INSERT INTO records (child_id, date, status, absence_reason) 
+        // VALUES (:child_id, :currentDate, :status, :absence_reason)";
+        // $stmt = $pdo->prepare($sql);
+        // $stmt->bindParam(':child_id', $child_id, PDO::PARAM_INT);//値を実際に挿入する．
+        // $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        // $stmt->bindParam(':absence_reason', $absence_reason, PDO::PARAM_STR);
+        // $stmt->bindParam(':currentDate', $currentDate,PDO::PARAM_STR);
+        // $stmt->bindParam(':randomNumber', $randomNumber, PDO::PARAM_INT);
+        // $stmt->execute();
+        // return 0;
+        $pdo = $this -> connect();
+        $stmt = $pdo -> prepare('INSERT INTO records SET child_id=?, date=?, status=?, absence_reason=?');
+        $stmt -> execute([$input['child_id'],$input['date'],$input['status'],$input['absence_reason']]);
     }
  
     /**

@@ -5,12 +5,34 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $db = new Database();
-$children_records = $db -> find((int)$_GET['id']);
+// $children_records = $db -> find((int)$_GET['id']);
 // var_dump($records);
+
 
 $pdo = $db->connect();
 $child_id = $_GET['id'];
 $childName = $db->getChildName($child_id);
+
+// パラメータが存在しない場合は、今月の年と月を使用
+$selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
+$selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('m');
+// 前月
+$prevMonth = $selectedMonth - 1;
+$prevYear = $selectedYear;
+if ($prevMonth < 1) {
+    $prevMonth = 12;
+    $prevYear--;
+}
+// 次月
+$nextMonth = $selectedMonth + 1;
+$nextYear = $selectedYear;
+if ($nextMonth > 12) {
+    $nextMonth = 1;
+    $nextYear++;
+}
+
+$monthlyRecords = $db->findMonthlyRecords($child_id, $selectedYear, $selectedMonth);
+// var_dump($monthlyRecords);
 
 //データの重複の確認処理→問題なければ保存
 if(!empty($_POST)){
@@ -23,13 +45,6 @@ if(!empty($_POST)){
     }
 }
 
-
-
-// その月の出欠履歴をデータベースから取得
-// $sql = "SELECT date, status, absence_reason FROM records WHERE child_id = ? AND MONTH(date) = MONTH(CURRENT_DATE())";
-// $stmt = $pdo->prepare($sql);
-// $stmt->execute([$id]);
-// $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -67,40 +82,19 @@ if(!empty($_POST)){
                 </div>
                 <input type="submit" value="送信"><br>
             </form>
-
-
-            <!-- <?php
-                $status = 2;  // 出欠状態の初期値
-                $absence_reason = null;  // 初期値としてNULLを設定
-
-                if(isset($_POST['status'])) {
-                    $status = $_POST['status'];
-                    $record = $db->record($id, $status, $absence_reason);
-                }
-
-                if ($status == 1){
-                    echo "出席が登録されました．<br>車に気をつけて，元気に登校してね！<br>";
-                }
-            ?>
-
-            <?php
-                if(isset($_POST['absence_reason'])) {
-                    $absence_reason = $_POST['absence_reason'];
-                    if (empty($_POST['absence_reason'])) {
-                        echo '欠席理由が入力されていません．<br>';
-                    } elseif (!empty($_POST['absence_reason'])) {
-                        $record = $db->record($id,$status,$absence_reason);
-                        echo '欠席理由が送信されました．<br>';
-                    }
-                
-                }
-            ?> -->
-
         </tr>
     </table>
 
     <!-- 出欠履歴 -->
     <h3><?php echo htmlspecialchars($childName); ?>の出欠履歴</h3>
+    <div class="pagination">
+        <div>
+            <a href="childdetail.php?id=<?=$child_id?>&year=<?=$prevYear?>&month=<?=$prevMonth?>">前月</a>
+        </div>
+        <div>
+        <a href="childdetail.php?id=<?=$child_id?>&year=<?=$nextYear?>&month=<?=$nextMonth?>">次月</a>
+        </div>
+    </div>
     <table>
         <tr>
             <th>日付</th>
@@ -109,7 +103,8 @@ if(!empty($_POST)){
             <th>欠席に対する返信</th>
         </tr>
 
-        <?php foreach($children_records as $record){ ?>
+        <?php foreach($monthlyRecords as $record){ ?>
+
         <tr>
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
             <td><?php if ($record['status'] == 2){

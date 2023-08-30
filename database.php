@@ -100,6 +100,26 @@ class Database{
         return $result;
     }
 
+    /**
+     * 指定された年と月に対応する、child_idの園児の出欠記録データと関連する情報を取得
+     */
+    public function findMonthlyRecords($child_id, $year, $month){
+        $dbh = $this->connect();
+        $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, childminders.name AS childminder_name
+        FROM records
+        INNER JOIN children ON records.child_id = children.id
+        LEFT JOIN replies ON records.id = replies.record_id
+        LEFT JOIN childminders ON replies.minder_id = childminders.id
+        WHERE records.child_id = ? AND YEAR(records.date) = ? AND MONTH(records.date) = ?
+        ORDER BY records.date DESC'; //日付が最新の順に表示
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([$child_id, $year, $month]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     //recordsテーブルの特定のidのデータのみ取得
     function find_record($record_id){
         $dbh = $this -> connect();

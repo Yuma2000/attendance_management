@@ -22,9 +22,13 @@
     <meta charset="UTF-8">
     <title>一覧</title>
     <link rel="stylesheet" href="css/response.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 <body>
-    <h3>返信画面</h3>
+    <h3>出欠の詳細</h3>
+    <div class="return_managrment">
+                <a href="management.php">管理画面に戻る</a>
+    </div>
     <table>
         <tr>
             <th>園児名</th>
@@ -42,12 +46,12 @@
             
             
             <td><?php if ($record['status'] == 2){
-                    print '欠席';
-                }else{print '出席';}?></td>
+                    echo '<i class="fas fa-times fa-2x" style="color: #ff4d4d;"></i>';
+                }else{echo '<i class="far fa-circle fa-2x" style="color: #62f973;"></i>';}?></td>
             <td><?= $record['absence_reason']; ?></td>
             <td><?= $record['reply_content'] ?><br><?= $record['childminder_name'] ?></td>
 
-            <?php if($record['status'] == 2): ?>
+            <?php if($record['status'] == 2 && $index === 0): ?>
                 <td>
                     <?php if(empty($record['reply_content'])): ?>
                         <a href="./reply.php?id=<?= $record['id']; ?>"><button>返信</button></a>
@@ -59,9 +63,7 @@
         </tr>
         <?php if($index === 0): ?>
     </table>
-            <div class="return_managrment">
-                <a href="management.php">管理画面に戻る</a>
-            </div>
+
             <h3>過去の出席履歴</h3>
     <table>
         <tr>

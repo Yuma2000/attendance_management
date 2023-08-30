@@ -19,7 +19,8 @@ $database_absent = new Database();
 //欠席者を取得
 $records_ab = $database_absent -> all_records_absent();
 
-
+$countPre = 0;
+$countAd = 0;
 ?>
 
 <!DOCTYPE html>
@@ -33,23 +34,29 @@ $records_ab = $database_absent -> all_records_absent();
     <h3>生徒出欠管理画面</h3>
     <h3>本日の日付： <tr>  <td><?= date('Y/m/d'); ?></td></tr></h3>
 
-    <table border="1">
+    <table>
         <tr>
             <th>出席</th>
             <?php foreach($records_pre as $records_pre2){ ?>
+            <?php $countPre++; ?>
         <tr>
             <td><a href="response.php?id=<?php print($records_pre2['child_id']) ?>" name="sentaku"><?php print($records_pre2['child_name']) ?></a></td>
         </tr>
-<?php } ?>
+            <?php } ?>
             <th>欠席</th>
             <?php foreach($records_ab as $records_ab2){ ?>
+            <?php $countAd++; ?>
         <tr>
             <td><a href="response.php?id=<?php print($records_ab2['child_id']) ?>" name="sentaku"><?php print($records_ab2['child_name']) ?></a></td>
         </tr>
-<?php } ?>
+            <?php } ?>
         
         </tr>
     </table>
+    <div>
+        <p>出席者：<?= $countPre ?> 人</p>
+        <p>欠席者：<?= $countAd ?> 人</p>
+    </div>
     
 </body>
 </html>

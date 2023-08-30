@@ -56,7 +56,7 @@ class Database{
         $currentDate = date('Y-m-d');
         $sql = 'SELECT records.*, children.name AS child_name FROM records
                 INNER JOIN children ON records.child_id = children.id 
-                WHERE records.status = 1 AND DATE(records.date) = ?';
+                WHERE records.status = 1 AND DATE(records.date) = ?'; //今日の日付のデータのみ取得
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$currentDate]);
         $recordsWithPresentChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -72,7 +72,7 @@ class Database{
         $currentDate = date('Y-m-d');
         $sql = 'SELECT records.*,children.id AS child_id, children.name AS child_name FROM records
                 INNER JOIN children ON records.child_id = children.id
-                WHERE records.status = 2 AND DATE(records.date) = ?';
+                WHERE records.status = 2 AND DATE(records.date) = ?'; //今日の日付のデータのみ取得
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$currentDate]);
         $recordsWithAbsentChildNames = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -70,7 +70,9 @@ $record = $database -> find_record((int)$_GET['id']);
                 </div>
                 <input type="submit" value="返信">
             </form>
-
+        </div>
+        <div class="return_managrment">
+            <a href="management.php">管理画面に戻る</a>
         </div>
 </body>
 </html>

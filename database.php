@@ -43,19 +43,6 @@ class Database{
 
     //出欠の登録
     function record($input){
-        // $currentDate = date("Y-m-d");//日付の取得
-        // $randomNumber = rand(1, 20); // 1から20までのランダムな数値を生成
-        // $pdo = $this->connect();
-        // $sql = "INSERT INTO records (child_id, date, status, absence_reason) 
-        // VALUES (:child_id, :currentDate, :status, :absence_reason)";
-        // $stmt = $pdo->prepare($sql);
-        // $stmt->bindParam(':child_id', $child_id, PDO::PARAM_INT);//値を実際に挿入する．
-        // $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-        // $stmt->bindParam(':absence_reason', $absence_reason, PDO::PARAM_STR);
-        // $stmt->bindParam(':currentDate', $currentDate,PDO::PARAM_STR);
-        // $stmt->bindParam(':randomNumber', $randomNumber, PDO::PARAM_INT);
-        // $stmt->execute();
-        // return 0;
         $pdo = $this -> connect();
         $stmt = $pdo -> prepare('INSERT INTO records SET child_id=?, date=?, status=?, absence_reason=?');
         $stmt -> execute([$input['child_id'],$input['date'],$input['status'],$input['absence_reason']]);

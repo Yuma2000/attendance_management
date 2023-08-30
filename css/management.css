@@ -22,13 +22,14 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
+    border: none;
 }
 
 th, td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #dddddd;
-    
+    border-top: 1px solid #dddddd;
 }
 
 tr:hover {
@@ -39,6 +40,7 @@ td a {
     text-decoration: none;
     color: #0072B5;
     transition: color 0.3s;
+    border-radius: 10px;
 }
 
 td a:hover {

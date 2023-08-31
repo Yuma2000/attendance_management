@@ -22,7 +22,7 @@
     <div class="forms-border">
     <form action="childdetail.php" method="GET">
         <label for="">生徒ID</label><br>
-        <input type="text" name="user_name" required="required" value="IDを入力" onfocus="clearInput(this)"><br>
+        <input type="text" name="id" required="required"><br>
         <label for="">パスワード</label><br>
         <input type="text" name="password" required="required" value="パスワードを入力" onfocus="clearInput(this)"><br>
         <div class="login-submit">

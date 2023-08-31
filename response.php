@@ -47,25 +47,30 @@
             <!-- <th>組</th> -->
             <th>日付</th>
             <th>出欠</th>
-            <th>欠席理由</th>
-            <th>欠席に対する返信</th>
+            <th>理由</th>
+            <th>保育士からの返信</th>
             <th></th>
         </tr>
 
         <?php foreach($records as $index => $record){ ?>
         <tr>
             <td><?= $record['child_name']; ?></td>
-            <!-- <td></td> -->
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
-            
-            
-            <td><?php if ($record['status'] == 2){
-                    echo '<i class="fas fa-times fa-2x" style="color: #ff4d4d;"></i>';
-                }else{echo '<i class="far fa-circle fa-2x" style="color: #62f973;"></i>';}?></td>
+            <td>
+                <?php 
+                    if ($record['status'] == 2) {
+                        echo '<i class="fas fa-times fa-2x" style="color: #ff4d4d;"></i>';
+                    } elseif ($record['status'] == 3) {
+                        echo '<i class="fas fa-square fa-2x" style="color: #fcff2e;"></i>';
+                    } else {
+                        echo '<i class="far fa-circle fa-2x" style="color: #62f973;"></i>';
+                    }
+                ?>
+            </td>
             <td><?= $record['absence_reason']; ?></td>
             <td><?= $record['reply_content'] ?><br><?= $record['childminder_name'] ?></td>
 
-            <?php if($record['status'] == 2 && $index === 0 && $record['date'] == date('Y-m-d')): ?>
+            <?php if(($record['status'] == 2 || $record['status'] == 3) && $index === 0 && $record['date'] == date('Y-m-d')): ?>
                 <td>
                     <?php if(empty($record['reply_content'])): ?>
                         <a href="./reply.php?id=<?= $record['id']; ?>"><button>返信</button></a>
@@ -86,8 +91,8 @@
             <th>園児名</th>
             <th>日付</th>
             <th>出欠</th>
-            <th>欠席理由</th>
-            <th>欠席に対する返信</th>
+            <th>理由</th>
+            <th>保育士からの返信</th>
         </tr>
         <?php endif ?>
         <?php } ?>

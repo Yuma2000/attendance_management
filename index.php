@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F保育園 / 出欠管理</title>
+    <title>出欠れんらくん</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 
@@ -18,7 +18,7 @@
     <div class="content">
         <div class="signin">
             <form method="POST" action="">
-                <h1>出欠管理アプリ</h1>
+                <h1>出欠れんらくん</h1>
                 <div class="guardian-or-childminder">
                     <div>
                         <a href="selectchild.php" class="btn-link">保護者ログイン</a>
@@ -31,7 +31,7 @@
         </div>
         <div class="intro">
             <h2>お休みの連絡、出欠管理を簡単に。</h2>
-            <p>F保育園の出欠管理アプリは、忙しい保護者と保育士をサポートします。<br>園児の出欠登録や履歴の確認をオンラインで手軽に行えます。</p>
+            <p>F保育園の出欠れんらくんは、忙しい保護者と保育士をサポートします。<br>園児の出欠登録や履歴の確認をオンラインで手軽に行えます。</p>
         </div>
         <div class="contact-info">
             <p>住所: 東京都新宿区〇〇〇〇-〇〇〇〇</p>

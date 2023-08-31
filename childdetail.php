@@ -55,7 +55,7 @@ if(!empty($_POST)){
 <body>
   <div class="header">
       <div class="header-left">
-          <a href="selectchild.php">園児一覧に戻る</a>
+          <a href="loginform.php">園児一覧に戻る</a>
       </div>
       <div class="header-center">
           F保育園

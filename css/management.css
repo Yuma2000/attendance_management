@@ -21,6 +21,9 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     border: none;
+    border-collapse: separate;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 
@@ -28,14 +31,14 @@ table {
     display: flex;
 }
 
+.submited {
+    margin-right: 20px;
+    margin-left: auto;
+}
+
 .yet {
     margin-left: 20px ;
     margin-right: auto;
-}
-
-.attendance {
-    margin-right: 20px;
-    margin-left: auto;
 }
 
 th{

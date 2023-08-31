@@ -9,7 +9,7 @@
 <body>
     <div class="header">
         <div class="header-left">
-        <a href="index.php">ホームページに戻る</a>
+        <a href="index.php">トップページに戻る</a>
     </div>
     <div class="header-center">
           F保育園
@@ -22,7 +22,7 @@
     <div class="forms-border">
     <form action="childdetail.php" method="GET">
         <label for="">生徒ID</label><br>
-        <input type="text" name="id" required="required"><br>
+        <input type="text" name="id" required="required"value="IDを入力" onfocus="clearInput(this)"><br>
         <label for="">パスワード</label><br>
         <input type="text" name="password" required="required" value="パスワードを入力" onfocus="clearInput(this)"><br>
         <div class="login-submit">

@@ -13,7 +13,7 @@
     <div class="button">
         <div class="back_button">
             <div class="a_back_button">
-                <a href="index.php" style="text-decoration:none">トップページへ戻る</a>
+                <a href="index.php" style="text-decoration:none">トップページに戻る</a>
             </div>
         </div>
 

@@ -20,7 +20,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>一覧</title>
+    <title>出欠れんらくん</title>
     <link rel="stylesheet" href="css/response.css">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>

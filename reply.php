@@ -22,7 +22,6 @@ if(!empty($_POST)){
     $records = $database->store_reply($_POST);
 
     $redirectUrl = "./response.php?id=" . $record["child_id"]. "&class=". $record["child_class"];
-
     header("Location: $redirectUrl");
     exit;
 }

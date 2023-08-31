@@ -131,3 +131,24 @@ td a:hover {
     border-color: #fafcfc #fafcfc #c7c7c7 #cbcbcb;
     box-shadow: -1px 1px 2px rgb(0 0 0 / 10%);
 }
+
+button#submitButton {
+    background-color: #0072B5; /* ボタンの背景色 */
+    color: #ffffff; /* ボタンの文字色 */
+    margin-top: 8px;
+    padding: 2px 9px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer; /* マウスカーソルをハンドアイコンに変更 */
+    transition: background-color 0.3s ease; /* 背景色の変更を滑らかにする */
+    font-weight: bold; /* 文字を太くする */
+}
+
+button#submitButton:hover {
+    background-color: #005094; /* ボタンの背景色を少し暗くする */
+}
+
+button#submitButton:active {
+    background-color: #003366; /* ボタンの背景色をさらに暗くする */
+    transform: translateY(1px); /* ボタンを少し下に移動させる */
+}

@@ -8,8 +8,8 @@ $db = new Database();
 
 $pdo = $db->connect();
 $child_id = $_GET['id'];
-$childName = $db->getChildName($child_id);
-
+$childData = $db->getChildName($child_id);
+// var_dump($childData);
 // パラメータが存在しない場合は、今月の年と月を使用
 $selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
 $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('m');
@@ -67,7 +67,8 @@ if(!empty($_POST)){
 
   <!-- 出欠登録 -->
   <div class="registration-content">
-    <h2><?php echo htmlspecialchars($childName); ?>：出欠登録</h2>
+    <h2><?php echo htmlspecialchars($childData['name']); ?>：出欠登録</h2>
+    <h3><?php echo htmlspecialchars($childData['class']); ?> 組</h3>
       <h3>本日の日付： <?php echo date('Y-m-d'); ?></h3>
       <h3>出欠状況の登録</h3>
 

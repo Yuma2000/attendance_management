@@ -9,6 +9,10 @@ $dotenv->load();
 
 require_once('./database.php');
 
+$database = new Database();
+$record = $database -> find_record((int)$_GET['id']);
+// var_dump($record['child_id']);
+
 if(!empty($_POST)){
     if(empty($_POST['reply_content'])){
         exit('<p>返信内容が入力されていません</p>'.'<br>'.'<a href="./management.php">管理画面に戻る</a>');
@@ -17,15 +21,13 @@ if(!empty($_POST)){
     $database = new Database();
     $records = $database->store_reply($_POST);
 
-    header('Location: ./management.php');
+    $redirectUrl = "./response.php?id=" . $record["child_id"];
+
+    header("Location: $redirectUrl");
     exit;
 }
-
-$database = new Database();
-$record = $database -> find_record((int)$_GET['id']);
-// var_dump($record);
-
 ?>
+
 
 
 
@@ -86,7 +88,7 @@ $record = $database -> find_record((int)$_GET['id']);
         
 
         <div class="return_managrment">
-            <a href="management.php" class="link">出欠一覧に戻る</a>
+            <a href="./response.php?id=<?= $record['child_id']; ?>" class="link">戻る</a>
         </div>    
        
     </div>

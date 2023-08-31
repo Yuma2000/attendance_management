@@ -101,7 +101,7 @@ class Database{
                 INNER JOIN children ON records.child_id = children.id
                 LEFT JOIN replies ON records.id = replies.record_id
                 LEFT JOIN childminders ON replies.minder_id = childminders.id
-                WHERE records.child_id = ?';
+                WHERE records.child_id = ? ORDER BY records.date DESC';
         $stmt = $dbh->prepare($sql);
         $stmt->execute([$id]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -129,7 +129,7 @@ class Database{
     //recordsテーブルの特定のidのデータのみ取得
     function find_record($record_id){
         $dbh = $this -> connect();
-        $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, replies.minder_id AS minder_id
+        $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, replies.minder_id AS minder_id, children.id AS child_id
                 FROM records 
                 INNER JOIN children ON records.child_id = children.id
                 LEFT JOIN replies ON records.id = replies.record_id
@@ -176,12 +176,12 @@ class Database{
     public function getChildName($id){
         try {
             $pdo = $this->connect();
-            $sql = 'SELECT name FROM children WHERE id = :id';
+            $sql = 'SELECT name, class FROM children WHERE id = :id';
             $stmt = $pdo->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
-            $name = $stmt->fetch();
-            return $name[0];
+            $childData = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $childData;
         } catch (Throwable $e) {
             echo "エラーが発生しました。";
         }

@@ -35,7 +35,7 @@ $records_yet = $db -> all_records_yet($_GET['class']);
     <div class="button">
         <div class="back_button">
             <div class="a_back_button">
-                <a href="./management_class.php" style="text-decoration:none">クラス選択へ戻る</a>
+                <a href="./management_class.php" style="text-decoration:none">クラス選択に戻る</a>
             </div>
         </div>
 

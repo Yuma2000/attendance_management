@@ -30,7 +30,7 @@ $records_yet = $database_yet -> all_records_yet();
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>一覧</title>
+    <title>出欠れんらくん</title>
     <link rel="stylesheet" href="css/management.css">
 </head>
 
@@ -49,7 +49,7 @@ $records_yet = $database_yet -> all_records_yet();
         </div>
     </div>
 
-    <h3>生徒出欠管理画面</h3>
+    <h3>園児出欠一覧</h3>
     <h3>本日の日付： <tr>  <td><?= date('Y/m/d'); ?></td></tr></h3>
 
 

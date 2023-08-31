@@ -13,7 +13,7 @@
         // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
         $records = $database -> find((int)$_GET['id']);
     }
-    // var_dump($records);
+    // var_dump($_GET['class']);
 ?>
  
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
 <body>
     <h3>出欠の詳細</h3>
     <div class="return_managrment">
-                <a href="management.php?class=<?= $records[0]['child_class']; ?>">管理画面に戻る</a>
+                <a href="management.php?class=<?= $_GET['class'] ?>">管理画面に戻る</a>
     </div>
     <table>
         <tr>

@@ -176,12 +176,12 @@ class Database{
     public function getChildName($id){
         try {
             $pdo = $this->connect();
-            $sql = 'SELECT name FROM children WHERE id = :id';
+            $sql = 'SELECT name, class FROM children WHERE id = :id';
             $stmt = $pdo->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
-            $name = $stmt->fetch();
-            return $name[0];
+            $childData = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $childData;
         } catch (Throwable $e) {
             echo "エラーが発生しました。";
         }

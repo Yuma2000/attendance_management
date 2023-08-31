@@ -59,28 +59,24 @@ if(!empty($_POST)){
         </table>
         <div class="reply_all">
             <form method="POST" action="">
-            <div class="reply_childminders">
-                <label class="reply_people">返信者</label>
-                <select name="minder">
-                    <option value="1">鈴木 たけし</option>
-                    <option value="2">田村 えりこ</option>
-                    <option value="3">中野 ゆかり</option>                        
-                    <option value="4">山田 みさき</option>
-                </select>
-            </div>
-            <div class="reply_content">
-                <input type="hidden" name="child_id" value="<?= $record['child_id']; ?>">
-                <input type="hidden" name="record_id" value="<?= $record['id']; ?>">
-                <textarea name="reply_content" rows="2" cols="60" placeholder="返信内容を入力してください"></textarea><br>
-                
-            </div>
-
-            <div class="button_position">
-            <input type="submit" value="返信" class="button">
-            </div >
-
-            
-            
+                <div class="reply_childminders">
+                    <label class="reply_people">返信者</label>
+                    <select name="minder">
+                        <option value="1">鈴木 たけし</option>
+                        <option value="2">田村 えりこ</option>
+                        <option value="3">中野 ゆかり</option>                        
+                        <option value="4">山田 みさき</option>
+                    </select>
+                </div>
+                <div class="reply_content">
+                    <input type="hidden" name="child_id" value="<?= $record['child_id']; ?>">
+                    <input type="hidden" name="record_id" value="<?= $record['id']; ?>">
+                    <textarea name="reply_content" rows="2" cols="60" placeholder="返信内容を入力してください"></textarea><br>
+                    
+                </div>
+                <div class="button_position">
+                    <input type="submit" value="返信" class="button">
+                </div >
             </form>
             
         </div>

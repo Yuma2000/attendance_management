@@ -1,46 +1,76 @@
-/* 仮完成 */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #FFF9E1; /* パステルカラーの黄色 */
     margin: 0;
     padding: 0;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #FFD679; /* 淡いオレンジ色 */
+    color: #4F4F4F; /* ダークグレイ */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-center {
+    flex: 1;
+    text-align: center;
+}
+
+.header-left a,
+.header-right {
+    color: #4F4F4F;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.header-left a:hover {
+    opacity: 0.7;
+}
+
 h3 {
     text-align: center;
-    margin-top: 50px;
     color: #0072B5;
 }
 
 table {
-    max-width: 600px;
+    max-width: 300px;
     margin: 30px auto;
-    background-color: #ffffff;
+    background-color: #FFFCE9; /* もう少し淡い黄色 */
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-    border:none;
+    border: none;
 }
 
-th, td {
+th {
     padding: 15px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #dddddd;
     border-top: 1px solid #dddddd;
-   
+    background-color: #FFEEB3; /* 淡い黄色 */
+}
+
+td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
 }
 
 tr:hover {
-    background-color: #f5f5f5;
+    background-color: #FFE494; /* クリーム色 */
 }
 
 td a {
     text-decoration: none;
     color: #0072B5;
     transition: color 0.3s;
-  
 }
 
 td a:hover {

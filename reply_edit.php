@@ -17,6 +17,7 @@ if(!empty($_POST)){
     if(empty($_POST['reply_content'])){
         exit('<p>返信内容が入力されていません</p>'.'<br>'.'<a href="./management.php">管理画面に戻る</a>');
     }
+    // var_dump($_POST);
 
     $database = new Database();
     $records = $database->update_reply($_POST);
@@ -60,30 +61,29 @@ if(!empty($_POST)){
         </table>
         <div class="reply_all">
             <form method="POST" action="">
-            <div class="reply_childminders">
-                <label class="reply_people">返信者</label>
-                <select name="minder">
-                    <!-- <option value="<?= $record['minder_id'] ?>"></option> -->
-                    <option value="1">鈴木 たけし</option>
-                    <option value="2">田村 えりこ</option>                        <option value="3">中野 ゆかり</option>
-                    <option value="4">山田 みさき</option>
-                </select>
-            </div>
-            <div class="reply_content">
-                <input type="hidden" name="child_id" value="<?= $record['child_id']; ?>">
-                <input type="hidden" name="record_id" value="<?= $record['id']; ?>">
-                <textarea name="reply_content" rows="2" cols="60" placeholder=""><?= $record['reply_content'] ?></textarea><br>
-                
-                
-            </div class="button_position">
-                <input type="submit" value="更新" class="button">
-            <div>
-
-            </div>
+                <div class="reply_childminders">
+                    <label class="reply_people">返信者</label>
+                    <select name="minder">
+                        <!-- <option value="<?= $record['minder_id'] ?>"></option> -->
+                        <option value="1">鈴木 たけし</option>
+                        <option value="2">田村 えりこ</option>                
+                        <option value="3">中野 ゆかり</option>
+                        <option value="4">山田 みさき</option>
+                    </select>
+                </div>
+                <div class="reply_content">
+                    <input type="hidden" name="child_id" value="<?= $record['child_id']; ?>">
+                    <input type="hidden" name="record_id" value="<?= $record['id']; ?>">
+                    <input type="hidden" name="id" value="<?= $record['reply_id'] ?>">
+                    <textarea name="reply_content" rows="2" cols="60" placeholder=""><?= $record['reply_content'] ?></textarea>
+                </div>
+                <div class="button_position">
+                    <input type="submit" value="更新" class="button">
+                </div>
             </form>
         </div>
     <div class="return_managrment">
-        <a href="./response.php?id=<?= $record['child_id']; ?>" class="link">戻る</a>
+        <a href="./response.php?id=<?= $record['child_id']; ?>&class=<?=$record['child_class'];?>" class="link">戻る</a>
     </div>
 </div>
 </body>

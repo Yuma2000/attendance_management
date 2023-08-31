@@ -129,7 +129,7 @@ class Database{
     //recordsテーブルの特定のidのデータのみ取得
     function find_record($record_id){
         $dbh = $this -> connect();
-        $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, replies.minder_id AS minder_id, children.id AS child_id, children.class AS child_class
+        $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, replies.minder_id AS minder_id, children.id AS child_id, children.class AS child_class, replies.id AS reply_id
                 FROM records 
                 INNER JOIN children ON records.child_id = children.id
                 LEFT JOIN replies ON records.id = replies.record_id
@@ -151,8 +151,8 @@ class Database{
     //返信内容の更新処理
     function update_reply($input){
         $dbh = $this ->connect();
-        $stmt = $dbh -> prepare('UPDATE replies SET record_id=?,content=?,minder_id=?');
-        $stmt -> execute([$input['record_id'],$input['reply_content'],$input['minder']]);
+        $stmt = $dbh -> prepare('UPDATE replies SET record_id=?,content=?,minder_id=? WHERE id=?');
+        $stmt -> execute([$input['record_id'],$input['reply_content'],$input['minder'],$input['id']]);
     }
 
 

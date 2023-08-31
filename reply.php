@@ -11,11 +11,11 @@ require_once('./database.php');
 
 $database = new Database();
 $record = $database -> find_record((int)$_GET['id']);
-// var_dump($record['child_id']);
+// var_dump($record);
 
 if(!empty($_POST)){
     if(empty($_POST['reply_content'])){
-        exit('<p>返信内容が入力されていません</p>'.'<br>'.'<a href="./management.php">管理画面に戻る</a>');
+        exit('<p>返信内容が入力されていません</p>'.'<br>'.'<a href="management.php">管理画面に戻る</a>');
     }
 
     $database = new Database();
@@ -86,8 +86,8 @@ if(!empty($_POST)){
         </div>
         
 
-        <div class="return_managrment">
-            <a href="./response.php?id=<?= $record['child_id']; ?>" class="link">戻る</a>
+        <div class="return_response">
+            <a href="./response.php?id=<?= $record['child_id']; ?>&class=<?=$record['child_class'];?>" class="link">戻る</a>
         </div>    
        
     </div>

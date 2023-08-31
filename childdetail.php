@@ -38,6 +38,7 @@ if(!empty($_POST)){
         $db -> record($_POST);
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -79,14 +80,17 @@ if(!empty($_POST)){
           <div class="attendance-details">
             <label><input type="radio" name="status" value=1 id="attendanceRadio">出席</label><br>
             <label><input type="radio" name="status" value=2 id="absenceRadio">欠席</label><br>
+            <label><input type="radio" name="status" value=3 id="lateRadio">遅刻</label><br>
             <div id="absenceReasonForm" style="display: none;">
-              欠席理由<br>
+
+            <?php echo htmlspecialchars($childData['name']); ?>のメッセージ<br>
               <div>
                 <label for="absence_reason"></label>
                 <textarea id="absence_reason" name="absence_reason" cols="50" rows="10"></textarea>
               </div>
+        
               <div id="errorContainer" style="color: red;"></div> <!-- エラーメッセージ表示用のコンテナ -->
-            </div>
+            </div>        
             <div class="submit-button">
               <input type="submit" value="送信"><br>
             </div>
@@ -108,8 +112,8 @@ if(!empty($_POST)){
         <tr>
             <th>日付</th>
             <th>出欠</th>
-            <th>欠席理由</th>
-            <th>欠席に対する返信</th>
+            <th><?php echo htmlspecialchars($childData['name']); ?>のメッセージ</th>
+            <th>保育士メッセージ</th>
         </tr>
 
         <?php foreach($monthlyRecords as $record){ ?>
@@ -118,8 +122,10 @@ if(!empty($_POST)){
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
             <td><?php if ($record['status'] == 2){
                     echo '<i class="fas fa-times fa-2x" style="color: #ff4d4d;"></i>';
-                }else{echo '<i class="far fa-circle fa-2x" style="color: #62f973;"></i>';}?></td>
+                }else if($record['status'] == 1){echo '<i class="far fa-circle fa-2x" style="color: #62f973;"></i>';}
+                else{echo '<i class="fas fa-square fa-2x" style="color: ;"></i>';}?></td>
             <td><?= $record['absence_reason']; ?></td>
+            
             <td><?= $record['reply_content'] ?><br><?= $record['childminder_name'] ?></td>
         </tr>
         <?php } ?>
@@ -129,6 +135,8 @@ if(!empty($_POST)){
         const attendanceRadio = document.getElementById('attendanceRadio');
         const absenceRadio = document.getElementById('absenceRadio');
         const absenceReasonForm = document.getElementById('absenceReasonForm');
+        const lateRadio = document.getElementById('lateRadio');
+       
 
         attendanceRadio.addEventListener('change', function() {
             if (this.checked) {
@@ -142,21 +150,35 @@ if(!empty($_POST)){
             }
         });
 
+        lateRadio.addEventListener('change', function() {
+            if (this.checked) {
+                absenceReasonForm.style.display = 'block'; // 遅刻が選択されたらフォームを表示にする
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             const attendanceForm = document.getElementById('attendanceForm');
             const absenceReasonForm = document.getElementById('absenceReasonForm');
+           
 
             attendanceForm.addEventListener('submit', async function(event) {
                 event.preventDefault(); // デフォルトのフォーム送信を防ぐ
 
                 const statusInput = document.querySelector('input[name="status"]:checked');
                 const absenceReasonInput = document.getElementById('absence_reason');
-
+              
                 // 欠席が選択されている場合、欠席理由が入力されているか確認
                 if (statusInput && statusInput.value === '2' && !absenceReasonInput.value.trim()) {
                     errorContainer.textContent = '欠席理由を入力してください。';
                     return;
                 }
+
+                // 遅刻が選択されている場合、遅刻理由が入力されているか確認
+                if (statusInput && statusInput.value === '3' && !absenceReasonInput.value.trim()) {
+                    errorContainer.textContent = '遅刻に関するメッセージを入力してください。';
+                    return;
+                } 
+
                 // エラーメッセージをクリア
                 errorContainer.textContent = '';
 
@@ -169,6 +191,7 @@ if(!empty($_POST)){
 
                     if (response.ok) {
                         absenceReasonForm.style.display = 'none';
+                       
                         location.reload();
                     } else {
                         console.error(error);

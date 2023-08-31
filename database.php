@@ -129,7 +129,7 @@ class Database{
     //recordsテーブルの特定のidのデータのみ取得
     function find_record($record_id){
         $dbh = $this -> connect();
-        $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, replies.minder_id AS minder_id
+        $sql = 'SELECT records.*, children.name AS child_name, replies.content AS reply_content, replies.minder_id AS minder_id, children.id AS child_id
                 FROM records 
                 INNER JOIN children ON records.child_id = children.id
                 LEFT JOIN replies ON records.id = replies.record_id

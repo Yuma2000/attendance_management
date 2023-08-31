@@ -63,7 +63,7 @@ $records_yet = $db -> all_records_yet($_GET['class']);
                     <?php else: ?>
                         <?php foreach($records_pre as $records_pre2): ?>
                         <tr>
-                            <td><a href="response.php?id=<?php print($records_pre2['child_id']) ?>" name="sentaku"><?php print($records_pre2['child_name']) ?></a></td>
+                            <td><a href="response.php?id=<?php print($records_pre2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_pre2['child_name']) ?></a></td>
                         </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -82,7 +82,7 @@ $records_yet = $db -> all_records_yet($_GET['class']);
                     <?php else: ?>
                         <?php foreach($records_ab as $records_ab2): ?>
                         <tr>
-                            <td><a href="response.php?id=<?php print($records_ab2['child_id']) ?>" name="sentaku"><?php print($records_ab2['child_name']) ?></a></td>
+                            <td><a href="response.php?id=<?php print($records_ab2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_ab2['child_name']) ?></a></td>
                         </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -95,7 +95,7 @@ $records_yet = $db -> all_records_yet($_GET['class']);
                 <th>未提出</th>
                     <?php foreach($records_yet as $records_yet2): ?>
                         <tr>
-                            <td><a href="response.php?id=<?php print($records_yet2['child_id']) ?>" name="sentaku"><?php print($records_yet2['child_name']) ?></a></td>
+                            <td><a href="response.php?id=<?php print($records_yet2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_yet2['child_name']) ?></a></td>
                         </tr>
                     <?php endforeach; ?>
             </table>

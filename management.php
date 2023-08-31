@@ -8,20 +8,17 @@ $dotenv->load();
 
 require_once('./database.php');
 
-$database_present = new Database();
+$db = new Database();
 //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
 //出席者を取得
-$records_pre = $database_present -> all_records_present();
+$records_pre = $db-> all_records_present($_GET['class']);
 
-
-$database_absent = new Database();
 //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
 //欠席者を取得
-$records_ab = $database_absent -> all_records_absent();
+$records_ab = $db -> all_records_absent($_GET['class']);
 
 /* 未提出者を取得 */
-$database_yet = new Database();
-$records_yet = $database_yet -> all_records_yet();
+$records_yet = $db -> all_records_yet($_GET['class']);
 
 
 ?>
@@ -30,7 +27,7 @@ $records_yet = $database_yet -> all_records_yet();
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>一覧</title>
+    <title>出欠れんらくん</title>
     <link rel="stylesheet" href="css/management.css">
 </head>
 
@@ -38,7 +35,7 @@ $records_yet = $database_yet -> all_records_yet();
     <div class="button">
         <div class="back_button">
             <div class="a_back_button">
-                <a href="index.php">トップページへ戻る</a>
+                <a href="./management_class.php" style="text-decoration:none">クラス選択に戻る</a>
             </div>
         </div>
 
@@ -49,25 +46,23 @@ $records_yet = $database_yet -> all_records_yet();
         </div>
     </div>
 
-    <h3>生徒出欠管理画面</h3>
+    <h3>園児出欠一覧</h3>
     <h3>本日の日付： <tr>  <td><?= date('Y/m/d'); ?></td></tr></h3>
-
-
-
+    <h3><?= $_GET['class'] ?>組</h3>
     <div class="table-content">
         <div class="attendance">
-            <table border="1">
+            <table>
                 <tr>
                     <th>出席</th>
                     <?php foreach($records_pre as $records_pre2){ ?>
                 <tr>
-                    <td><a href="response.php?id=<?php print($records_pre2['child_id']) ?>" name="sentaku"><?php print($records_pre2['child_name']) ?></a></td>
+                    <td><a href="response.php?id=<?php print($records_pre2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_pre2['child_name']) ?></a></td>
                 </tr>
                 <?php } ?>
                     <th>欠席</th>
                     <?php foreach($records_ab as $records_ab2){ ?>
                 <tr>
-                    <td><a href="response.php?id=<?php print($records_ab2['child_id']) ?>" name="sentaku"><?php print($records_ab2['child_name']) ?></a></td>
+                    <td><a href="response.php?id=<?php print($records_ab2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_ab2['child_name']) ?></a></td>
                 </tr>
                 <?php } ?>
                 </tr>
@@ -75,17 +70,15 @@ $records_yet = $database_yet -> all_records_yet();
         </div>
 
         <div class="yet">
-            <table border="1">
+            <table>
             <th>未提出</th>
                     <?php foreach($records_yet as $records_yet2){ ?>
                 <tr>
-                    <td><a href="response.php?id=<?php print($records_yet2['child_id']) ?>" name="sentaku"><?php print($records_yet2['child_name']) ?></a></td>
+                    <td><a href="response.php?id=<?php print($records_yet2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_yet2['child_name']) ?></a></td>
                 </tr>
             <?php } ?>
             </table>
         </div>
     </div>
-    
-
 </body>
 </html>

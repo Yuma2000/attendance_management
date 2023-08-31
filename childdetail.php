@@ -5,14 +5,11 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $db = new Database();
-// $children_records = $db -> find((int)$_GET['id']);
-// var_dump($records);
-
 
 $pdo = $db->connect();
 $child_id = $_GET['id'];
-$childName = $db->getChildName($child_id);
-
+$childData = $db->getChildName($child_id);
+// var_dump($childData);
 // パラメータが存在しない場合は、今月の年と月を使用
 $selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
 $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('m');
@@ -32,19 +29,15 @@ if ($nextMonth > 12) {
 }
 
 $monthlyRecords = $db->findMonthlyRecords($child_id, $selectedYear, $selectedMonth);
-// var_dump($monthlyRecords);
 
 //データの重複の確認処理→問題なければ保存
 if(!empty($_POST)){
-    // var_dump($_POST['date']);
-    // $db -> record($_POST);
     $duplication = $db -> isDuplicationRecord($_POST['child_id'], $_POST['date']);
 
     if(!$duplication){
         $db -> record($_POST);
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -60,52 +53,47 @@ if(!empty($_POST)){
 
 </header>
 <body>
-<div class="header">
-        <div class="header-left">
-            <a href="selectchild.php">園児一覧に戻る</a>
-        </div>
-        <div class="header-center">
-            F保育園
-        </div>
-        <div class="header-right">
-            保護者としてログイン中
-        </div>
+  <div class="header">
+      <div class="header-left">
+          <a href="selectchild.php">園児一覧に戻る</a>
+      </div>
+      <div class="header-center">
+          F保育園
+      </div>
+      <div class="header-right">
+          保護者としてログイン中
+      </div>
+  </div>
+
+  <!-- 出欠登録 -->
+  <div class="registration-content">
+    <h2><?php echo htmlspecialchars($childData['name']); ?>：出欠登録</h2>
+    <h3><?php echo htmlspecialchars($childData['class']); ?> 組</h3>
+      <h3>本日の日付： <?php echo date('Y-m-d'); ?></h3>
+      <h3>出欠状況の登録</h3>
+
+      <form method="post" action="" id="attendanceForm">
+          <input type="hidden" name="child_id" value="<?= $child_id; ?>">
+          <input type="hidden" name="date" value="<?= date('Y-m-d'); ?>">
+
+          <div class="attendance-details">
+            <label><input type="radio" name="status" value=1 id="attendanceRadio">出席</label><br>
+            <label><input type="radio" name="status" value=2 id="absenceRadio">欠席</label><br>
+            <div id="absenceReasonForm" style="display: none;">
+              欠席理由<br>
+              <div>
+                <label for="absence_reason"></label>
+                <textarea id="absence_reason" name="absence_reason" cols="50" rows="10"></textarea>
+              </div>
+              <div id="errorContainer" style="color: red;"></div> <!-- エラーメッセージ表示用のコンテナ -->
+            </div>
+            <div class="submit-button">
+              <input type="submit" value="送信"><br>
+            </div>
+          </div>
+        </form>
     </div>
 
-    <!-- 出欠登録 -->
-    <div class="registration-content">
-    <h2><?php echo htmlspecialchars($childName); ?>：出欠登録</h2>
-
-    
-<h3>本日の日付： <?php echo date('Y-m-d'); ?></h3>
-<h3>出欠状況の登録</h3>
-
-<form method="post" action="" id="attendanceForm">
-    <input type="hidden" name="child_id" value="<?= $child_id; ?>">
-    <input type="hidden" name="date" value="<?= date('Y-m-d'); ?>">
-
-    <div class="attendance-details">
-    <label><input type="radio" name="status" value=1 id="attendanceRadio">出席</label><br>
-    <label><input type="radio" name="status" value=2 id="absenceRadio">欠席</label><br>
-    <div id="absenceReasonForm" style="display: none;">
-        欠席理由<br>
-        <div>
-            <label for="absence_reason"></label>
-            <textarea id="absence_reason" name="absence_reason" cols="50" rows="10"></textarea>
-        </div>
-        <div id="errorContainer" style="color: red;"></div> <!-- エラーメッセージ表示用のコンテナ -->
-    </div>
-    <div class="submit-button">
-    <input type="submit" value="送信"><br>
-    </div>
-  
-</form>
-    </div>
-    </div>
-   
-
-    
-     
     <!-- 出欠履歴 -->
     <h3><出欠履歴></h3>
     <div class="pagination">
@@ -154,42 +142,42 @@ if(!empty($_POST)){
             }
         });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const attendanceForm = document.getElementById('attendanceForm');
-        const absenceReasonForm = document.getElementById('absenceReasonForm');
+        document.addEventListener('DOMContentLoaded', function() {
+            const attendanceForm = document.getElementById('attendanceForm');
+            const absenceReasonForm = document.getElementById('absenceReasonForm');
 
-        attendanceForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // デフォルトのフォーム送信を防ぐ
+            attendanceForm.addEventListener('submit', async function(event) {
+                event.preventDefault(); // デフォルトのフォーム送信を防ぐ
 
-            const statusInput = document.querySelector('input[name="status"]:checked');
-            const absenceReasonInput = document.getElementById('absence_reason');
+                const statusInput = document.querySelector('input[name="status"]:checked');
+                const absenceReasonInput = document.getElementById('absence_reason');
 
-            // 欠席が選択されている場合、欠席理由が入力されているか確認
-            if (statusInput && statusInput.value === '2' && !absenceReasonInput.value.trim()) {
-                errorContainer.textContent = '欠席理由を入力してください。';
-                return;
-            }
-            // エラーメッセージをクリア
-            errorContainer.textContent = '';
+                // 欠席が選択されている場合、欠席理由が入力されているか確認
+                if (statusInput && statusInput.value === '2' && !absenceReasonInput.value.trim()) {
+                    errorContainer.textContent = '欠席理由を入力してください。';
+                    return;
+                }
+                // エラーメッセージをクリア
+                errorContainer.textContent = '';
 
-            const formData = new FormData(attendanceForm);
-            try {
-                const response = await fetch(attendanceForm.action, {
-                    method: 'POST',
-                    body: formData
-                });
+                const formData = new FormData(attendanceForm);
+                try {
+                    const response = await fetch(attendanceForm.action, {
+                        method: 'POST',
+                        body: formData
+                    });
 
-                if (response.ok) {
-                    absenceReasonForm.style.display = 'none';
-                    location.reload();
-                } else {
+                    if (response.ok) {
+                        absenceReasonForm.style.display = 'none';
+                        location.reload();
+                    } else {
+                        console.error(error);
+                    }
+                } catch (error) {
                     console.error(error);
                 }
-            } catch (error) {
-                console.error(error);
-            }
+            });
         });
-    });
     </script>
 </body>
 </html>

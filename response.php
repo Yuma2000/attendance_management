@@ -13,7 +13,7 @@
         // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
         $records = $database -> find((int)$_GET['id']);
     }
-    // var_dump($records);
+    // var_dump($_GET['class']);
 ?>
  
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
     <div class="button">
         <div class="back_button">
             <div class="a_back_button">
-                <a href="management.php"> 生徒選択画面に戻る</a>
+                <a href="management.php?class=<?= $_GET['class'] ?>"> 生徒選択画面に戻る</a>
             </div>
         </div>
         <div class="login_button">
@@ -38,13 +38,13 @@
     </a>
             </div>
         </div>
-
     </div>
     <h3>出欠の詳細</h3>
    
     <table>
         <tr>
             <th>園児名</th>
+            <!-- <th>組</th> -->
             <th>日付</th>
             <th>出欠</th>
             <th>欠席理由</th>
@@ -55,6 +55,7 @@
         <?php foreach($records as $index => $record){ ?>
         <tr>
             <td><?= $record['child_name']; ?></td>
+            <!-- <td></td> -->
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
             
             
@@ -64,7 +65,7 @@
             <td><?= $record['absence_reason']; ?></td>
             <td><?= $record['reply_content'] ?><br><?= $record['childminder_name'] ?></td>
 
-            <?php if($record['status'] == 2 && $index === 0): ?>
+            <?php if($record['status'] == 2 && $index === 0 && $record['date'] == date('Y-m-d')): ?>
                 <td>
                     <?php if(empty($record['reply_content'])): ?>
                         <a href="./reply.php?id=<?= $record['id']; ?>"><button>返信</button></a>

@@ -76,3 +76,11 @@ td a {
 td a:hover {
     color: #005094;
 }
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 200px solid blue; /* 三角形の高さや色を調整できます */
+}

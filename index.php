@@ -21,7 +21,7 @@
                 <h1>出欠れんらくん</h1>
                 <div class="guardian-or-childminder">
                     <div>
-                        <a href="selectchild.php" class="btn-link">保護者ログイン</a>
+                        <a href="loginform.php" class="btn-link">保護者ログイン</a>
                     </div>
                     <div>
                         <a href="management_class.php" class="btn-link">保育士ログイン</a>

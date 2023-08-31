@@ -47,13 +47,21 @@ if(!empty($_POST)){
                 <th>園児名</th>
                 <th>日付</th>
                 <th>出欠</th>
-                <th>欠席理由</th>
+                <th>理由</th>
             </tr>
 
             <tr>
                 <th><?= $record['child_name'] ?></th>
                 <th><?= $record['date'] ?></th>
-                <th><?php if($record['status'] == 2){ echo '<i class="fas fa-times fa-2x" style="color: #ff4d4d;"></i>'; }  ?></th>
+                <th>
+                    <?php
+                        if ($record['status'] == 2) {
+                            echo '<i class="fas fa-times fa-2x" style="color: #ff4d4d;"></i>';
+                        } else {
+                            echo '<i class="fas fa-square fa-2x" style="color: #fcff2e;"></i>';
+                        }
+                    ?>
+                </th>
                 <th><?= $record['absence_reason'] ?></th>
             </tr>
         </table>

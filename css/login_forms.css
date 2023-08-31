@@ -1,0 +1,52 @@
+body{
+    font-family: 'Arial', sans-serif;
+    background-color: #fff9e1;
+    margin: 0;
+    padding: 0;
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #FFD679; /* 淡いオレンジ色 */
+    color: #4F4F4F; /* ダークグレイ */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+.header-center {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+}
+.header-left a,
+.header-right {
+    color: #4F4F4F;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+.header-left a:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+/* 大枠 */
+.forms-border{
+    background-color: #ffffff;
+    color: #4F4F4F;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 50px;
+    margin-top: 50px;
+    border: 1px;
+    padding: 10px;
+    font-weight:bold;
+}
+
+.login-submit{
+    padding-top: 20px;
+}

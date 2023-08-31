@@ -20,9 +20,11 @@ $records_ab = $db -> all_records_absent($_GET['class']);
 /* 未提出者を取得 */
 $records_yet = $db -> all_records_yet($_GET['class']);
 
+// 遅刻者を取得
+$records_late = $db->all_records_late($_GET['class']);
+
 if (!empty($_POST)) {
     $db->check($_POST);
-
     header("Location: management.php?class=" . $_GET['class']);
     exit();
 }
@@ -107,15 +109,36 @@ if (!empty($_POST)) {
             </div>
         </div>
 
-        <div class="yet">
-            <table>
-                <th>未提出</th>
-                    <?php foreach($records_yet as $records_yet2): ?>
+        <div class="table-yet-late">
+            <div class="yet">
+                <table>
+                    <th>未提出</th>
+                        <?php foreach($records_yet as $records_yet2): ?>
+                            <tr>
+                                <td><a href="response.php?id=<?php print($records_yet2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_yet2['child_name']) ?></a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                </table>
+            </div>
+
+            <div class="late">
+                <table>
+                    <tr>
+                        <th>遅刻</th>
+                    </tr>
+                    <?php if(empty($records_late)): ?>
                         <tr>
-                            <td><a href="response.php?id=<?php print($records_yet2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_yet2['child_name']) ?></a></td>
+                            <td>データなし</td>
                         </tr>
-                    <?php endforeach; ?>
-            </table>
+                    <?php else: ?>
+                        <?php foreach($records_late as $record_late): ?>
+                            <tr>
+                                <td><a href="response.php?id=<?php print($record_late['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($record_late['child_name']) ?></a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </table>
+            </div>
         </div>
     </div>
 </body>

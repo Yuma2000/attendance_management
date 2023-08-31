@@ -64,7 +64,8 @@ class Database{
     // recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する（欠席者用）
     public function all_records_absent($class_name){
         $pdo = $this->connect();
-        $sql = 'SELECT records.*,children.id AS child_id, children.name AS child_name FROM records
+        $sql = 'SELECT records.*, children.id AS child_id, children.name AS child_name
+                FROM records
                 INNER JOIN children ON records.child_id = children.id 
                 WHERE records.status = 2 AND records.date = CURDATE() AND children.class = ?';
         $stmt = $pdo->prepare($sql);
@@ -92,9 +93,25 @@ class Database{
 
         return $childrenWithoutRecords;
     }
-    
 
-    
+    /**
+     * 遅刻者のレコードを抽出して返す。
+     */
+    public function all_records_late($class_name)
+    {
+        $currentDate = date("Y-m-d");
+        $pdo = $this->connect();
+        $sql = 'SELECT records.*, children.id AS child_id, children.name AS child_name
+                FROM records
+                INNER JOIN children ON records.child_id = children.id 
+                WHERE records.status = 3 AND records.date = CURDATE() AND children.class = ?';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$class_name]);
+        $childrenWithoutRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $childrenWithoutRecords;
+    }
+
     // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
     public function find($id){
         $dbh = $this->connect();

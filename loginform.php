@@ -8,7 +8,7 @@
 <body>
     <form action="childdetail.php" method="GET">
         <label for="">生徒ID</label><br>
-        <input type="text" name="user_name" required="required"><br>
+        <input type="text" name="id" required="required"><br>
         <label for="">パスワード</label><br>
         <input type="text" name="password" required="required"><br>
         <input type="submit" value="ログイン"> 

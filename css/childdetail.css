@@ -62,13 +62,10 @@ padding: 10px;
     border-radius: 50%;
 }
 
-.attendance-details input[type="radio"][value="2"] {
-    margin-bottom: 30px;
-}
+
 .submit-button{
     margin-bottom: 20px;
 }
-
 
 
 /* 出欠履歴 */
@@ -135,9 +132,3 @@ td a {
     justify-content: space-evenly;
     align-items: center;
 }
-
-.pagination a {
-    text-decoration: none;
-    /* font-weight: bold; */
-}
-

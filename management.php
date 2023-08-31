@@ -38,7 +38,7 @@ $records_yet = $database_yet -> all_records_yet();
     <div class="button">
         <div class="back_button">
             <div class="a_back_button">
-                <a href="index.php">トップページへ戻る</a>
+                <a href="index.php" style="text-decoration:none">トップページへ戻る</a>
             </div>
         </div>
 

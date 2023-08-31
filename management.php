@@ -23,6 +23,11 @@ $records_yet = $db -> all_records_yet($_GET['class']);
 // 遅刻者を取得
 $records_late = $db->all_records_late($_GET['class']);
 
+if (!empty($_POST)) {
+    $db->check($_POST);
+    header("Location: management.php?class=" . $_GET['class']);
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +70,19 @@ $records_late = $db->all_records_late($_GET['class']);
                     <?php else: ?>
                         <?php foreach($records_pre as $records_pre2): ?>
                         <tr>
-                            <td><a href="response.php?id=<?php print($records_pre2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_pre2['child_name']) ?></a></td>
+                            <td>
+                                <a href="response.php?id=<?php print($records_pre2['child_id']) ?>&class=<?= $_GET['class']?>" name="sentaku"><?php print($records_pre2['child_name']) ?></a>
+                                <form method="POST" action="" id="attendanceForm" onsubmit="disableButton()">
+                                    <input type="hidden" name="check_message" value="出席確認済みです。">
+                                    <input type="hidden" name="record_id" value="<?=$records_pre2['id']?>">
+                                    <input type="hidden" name="minder_id" value="1">
+                                    <?php if($records_pre2['check_message'] != '出席確認済みです。'): ?>
+                                    <button type="submit" id="submitButton">確認</button>
+                                    <?php else: ?>
+                                    <div>確認済み</div>
+                                    <?php endif ?>                           
+                                </form>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

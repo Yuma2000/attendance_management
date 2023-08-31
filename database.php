@@ -49,8 +49,10 @@ class Database{
     // recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する（出席者用）
     public function all_records_present($class_name){ //$class_nameで特定のクラスの園児のみを抽出
         $pdo = $this->connect();
-        $sql = 'SELECT records.*, children.name AS child_name FROM records
-                INNER JOIN children ON records.child_id = children.id 
+        $sql = 'SELECT records.*, children.name AS child_name, replies.content AS check_message, childminders.name AS minder_name FROM records
+                INNER JOIN children ON records.child_id = children.id
+                LEFT JOIN replies ON records.id = replies.record_id
+                LEFT JOIN childminders ON replies.minder_id = childminders.id
                 WHERE records.status = 1 AND records.date = CURDATE() AND children.class = ?';
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$class_name]);
@@ -202,6 +204,12 @@ class Database{
         } catch (Throwable $e) {
             echo "エラーが発生しました。";
         }
+    }
+
+    function check($input){
+        $pdo = $this -> connect();
+        $stmt = $pdo -> prepare('INSERT INTO replies SET content=?, record_id=?, minder_id=?');
+        $stmt -> execute([$input['check_message'], (int)$input['record_id'], (int)$input['minder_id']]);
     }
 }
 

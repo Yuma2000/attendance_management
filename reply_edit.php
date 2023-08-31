@@ -83,7 +83,7 @@ if(!empty($_POST)){
             </form>
         </div>
     <div class="return_managrment">
-        <a href="management.php" class="link">出欠一覧に戻る</a>
+        <a href="./response.php?id=<?= $record['child_id']; ?>" class="link">戻る</a>
     </div>
 </div>
 </body>

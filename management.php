@@ -8,20 +8,17 @@ $dotenv->load();
 
 require_once('./database.php');
 
-$database_present = new Database();
+$db = new Database();
 //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
 //出席者を取得
-$records_pre = $database_present -> all_records_present($_GET['class']);
+$records_pre = $db-> all_records_present($_GET['class']);
 
-
-$database_absent = new Database();
 //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
 //欠席者を取得
-$records_ab = $database_absent -> all_records_absent($_GET['class']);
+$records_ab = $db -> all_records_absent($_GET['class']);
 
 /* 未提出者を取得 */
-$database_yet = new Database();
-$records_yet = $database_yet -> all_records_yet($_GET['class']);
+$records_yet = $db -> all_records_yet($_GET['class']);
 
 
 ?>

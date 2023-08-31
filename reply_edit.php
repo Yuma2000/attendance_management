@@ -34,7 +34,7 @@ $record = $database -> find_record((int)$_GET['id']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>返信</title>
+    <title>出欠れんらくん</title>
     <link rel="stylesheet" href="css/reply_edit.css">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
@@ -52,7 +52,7 @@ $record = $database -> find_record((int)$_GET['id']);
             <tr>
                 <th><?= $record['child_name'] ?></th>
                 <th><?= $record['date'] ?></th>
-                <th><?php if($record['status'] == 2){ print '欠席'; }  ?></th>
+                <th><?php if($record['status'] == 2){  echo '<i class="fas fa-times fa-2x" style="color: #ff4d4d;"></i>'; }  ?></th>
                 <th><?= $record['absence_reason'] ?></th>
             </tr>
         </table>
@@ -81,7 +81,7 @@ $record = $database -> find_record((int)$_GET['id']);
             </form>
         </div>
     <div class="return_managrment">
-        <a href="management.php" class="link">管理画面に戻る</a>
+        <a href="management.php" class="link">出欠一覧に戻る</a>
     </div>
 </div>
 </body>

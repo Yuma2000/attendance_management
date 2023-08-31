@@ -35,11 +35,10 @@ $records_yet = $database_yet -> all_records_yet($_GET['class']);
 </head>
 
 <body>
-    <a href="./management_class.php">クラス選択へ</a>
     <div class="button">
         <div class="back_button">
             <div class="a_back_button">
-                <a href="index.php" style="text-decoration:none">トップページへ戻る</a>
+                <a href="./management_class.php" style="text-decoration:none">クラス選択へ戻る</a>
             </div>
         </div>
 

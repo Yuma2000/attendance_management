@@ -13,22 +13,34 @@
         // recordsテーブルのchild_idからその園児の出欠記録データとchildrenテーブルのnameカラムの値を取得
         $records = $database -> find((int)$_GET['id']);
     }
-    // var_dump($records);
+    // var_dump($_GET['class']);
 ?>
  
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>一覧</title>
+    <title>出欠れんらくん</title>
     <link rel="stylesheet" href="css/response.css">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 <body>
-    <h3>出欠の詳細</h3>
-    <div class="return_managrment">
-                <a href="management.php?class=<?= $records[0]['child_class']; ?>">管理画面に戻る</a>
+    <div class="button">
+        <div class="back_button">
+            <div class="a_back_button">
+                <a href="management.php?class=<?= $_GET['class'] ?>"> 生徒選択画面に戻る</a>
+            </div>
+        </div>
+        <div class="login_button">
+            <div class="a_login_button">
+                <a href="#" style="text-decoration:none">
+        "保育士ログイン中"
+    </a>
+            </div>
+        </div>
     </div>
+    <h3>出欠の詳細</h3>
+   
     <table>
         <tr>
             <th>園児名</th>
@@ -57,8 +69,10 @@
                 <td>
                     <?php if(empty($record['reply_content'])): ?>
                         <a href="./reply.php?id=<?= $record['id']; ?>"><button>返信</button></a>
-                    <?php else: ?>
+                    <?php else: ?><div class="reply-button">
                         <a href="./reply_edit.php?id=<?= $record['id']; ?>"><button>編集</button></a>
+                    </div>
+                       
                     <?php endif ?>
                 </td>
             <?php endif ?>

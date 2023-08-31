@@ -5,9 +5,6 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $db = new Database();
-// $children_records = $db -> find((int)$_GET['id']);
-// var_dump($records);
-
 
 $pdo = $db->connect();
 $child_id = $_GET['id'];
@@ -32,19 +29,15 @@ if ($nextMonth > 12) {
 }
 
 $monthlyRecords = $db->findMonthlyRecords($child_id, $selectedYear, $selectedMonth);
-// var_dump($monthlyRecords);
 
 //データの重複の確認処理→問題なければ保存
 if(!empty($_POST)){
-    // var_dump($_POST['date']);
-    // $db -> record($_POST);
     $duplication = $db -> isDuplicationRecord($_POST['child_id'], $_POST['date']);
 
     if(!$duplication){
         $db -> record($_POST);
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -57,10 +50,8 @@ if(!empty($_POST)){
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 <body>
-
     <!-- 出欠登録 -->
     <h2><?php echo htmlspecialchars($childName); ?>：出欠登録</h2>
-
     <table>
         <tr>
             <h3>本日の日付： <?php echo date('Y-m-d'); ?></h3>
@@ -133,42 +124,42 @@ if(!empty($_POST)){
             }
         });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const attendanceForm = document.getElementById('attendanceForm');
-        const absenceReasonForm = document.getElementById('absenceReasonForm');
+        document.addEventListener('DOMContentLoaded', function() {
+            const attendanceForm = document.getElementById('attendanceForm');
+            const absenceReasonForm = document.getElementById('absenceReasonForm');
 
-        attendanceForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // デフォルトのフォーム送信を防ぐ
+            attendanceForm.addEventListener('submit', async function(event) {
+                event.preventDefault(); // デフォルトのフォーム送信を防ぐ
 
-            const statusInput = document.querySelector('input[name="status"]:checked');
-            const absenceReasonInput = document.getElementById('absence_reason');
+                const statusInput = document.querySelector('input[name="status"]:checked');
+                const absenceReasonInput = document.getElementById('absence_reason');
 
-            // 欠席が選択されている場合、欠席理由が入力されているか確認
-            if (statusInput && statusInput.value === '2' && !absenceReasonInput.value.trim()) {
-                errorContainer.textContent = '欠席理由を入力してください。';
-                return;
-            }
-            // エラーメッセージをクリア
-            errorContainer.textContent = '';
+                // 欠席が選択されている場合、欠席理由が入力されているか確認
+                if (statusInput && statusInput.value === '2' && !absenceReasonInput.value.trim()) {
+                    errorContainer.textContent = '欠席理由を入力してください。';
+                    return;
+                }
+                // エラーメッセージをクリア
+                errorContainer.textContent = '';
 
-            const formData = new FormData(attendanceForm);
-            try {
-                const response = await fetch(attendanceForm.action, {
-                    method: 'POST',
-                    body: formData
-                });
+                const formData = new FormData(attendanceForm);
+                try {
+                    const response = await fetch(attendanceForm.action, {
+                        method: 'POST',
+                        body: formData
+                    });
 
-                if (response.ok) {
-                    absenceReasonForm.style.display = 'none';
-                    location.reload();
-                } else {
+                    if (response.ok) {
+                        absenceReasonForm.style.display = 'none';
+                        location.reload();
+                    } else {
+                        console.error(error);
+                    }
+                } catch (error) {
                     console.error(error);
                 }
-            } catch (error) {
-                console.error(error);
-            }
+            });
         });
-    });
     </script>
 </body>
 </html>

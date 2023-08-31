@@ -23,7 +23,7 @@
                     <a href="selectchild.php" class="btn-link">保護者ログイン</a>
                 </div>
                 <div>
-                    <a href="management.php" class="btn-link">保育士ログイン</a>
+                    <a href="management_class.php" class="btn-link">保育士ログイン</a>
                 </div>
             </div>
         </form>

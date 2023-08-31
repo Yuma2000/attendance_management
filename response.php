@@ -27,11 +27,12 @@
 <body>
     <h3>出欠の詳細</h3>
     <div class="return_managrment">
-                <a href="management.php">管理画面に戻る</a>
+                <a href="management.php?class=<?= $records[0]['child_class']; ?>">管理画面に戻る</a>
     </div>
     <table>
         <tr>
             <th>園児名</th>
+            <!-- <th>組</th> -->
             <th>日付</th>
             <th>出欠</th>
             <th>欠席理由</th>
@@ -42,6 +43,7 @@
         <?php foreach($records as $index => $record){ ?>
         <tr>
             <td><?= $record['child_name']; ?></td>
+            <!-- <td></td> -->
             <td><?= date('Y/m/d', strtotime($record['date'])); ?></td>
             
             
@@ -51,7 +53,7 @@
             <td><?= $record['absence_reason']; ?></td>
             <td><?= $record['reply_content'] ?><br><?= $record['childminder_name'] ?></td>
 
-            <?php if($record['status'] == 2 && $index === 0): ?>
+            <?php if($record['status'] == 2 && $index === 0 && $record['date'] == date('Y-m-d')): ?>
                 <td>
                     <?php if(empty($record['reply_content'])): ?>
                         <a href="./reply.php?id=<?= $record['id']; ?>"><button>返信</button></a>

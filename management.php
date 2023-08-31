@@ -11,17 +11,17 @@ require_once('./database.php');
 $database_present = new Database();
 //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
 //出席者を取得
-$records_pre = $database_present -> all_records_present();
+$records_pre = $database_present -> all_records_present($_GET['class']);
 
 
 $database_absent = new Database();
 //recordsテーブルのデータを全取得＆recordsテーブルのchild_idからchildrenテーブルのnameカラムの値を取得する
 //欠席者を取得
-$records_ab = $database_absent -> all_records_absent();
+$records_ab = $database_absent -> all_records_absent($_GET['class']);
 
 /* 未提出者を取得 */
 $database_yet = new Database();
-$records_yet = $database_yet -> all_records_yet();
+$records_yet = $database_yet -> all_records_yet($_GET['class']);
 
 
 ?>
@@ -35,6 +35,7 @@ $records_yet = $database_yet -> all_records_yet();
 </head>
 
 <body>
+    <a href="./management_class.php">クラス選択へ</a>
     <div class="button">
         <div class="back_button">
             <div class="a_back_button">
@@ -51,12 +52,10 @@ $records_yet = $database_yet -> all_records_yet();
 
     <h3>園児出欠一覧</h3>
     <h3>本日の日付： <tr>  <td><?= date('Y/m/d'); ?></td></tr></h3>
-
-
-
+    <h3><?= $_GET['class'] ?>組</h3>
     <div class="table-content">
         <div class="attendance">
-            <table border="1">
+            <table>
                 <tr>
                     <th>出席</th>
                     <?php foreach($records_pre as $records_pre2){ ?>
@@ -75,7 +74,7 @@ $records_yet = $database_yet -> all_records_yet();
         </div>
 
         <div class="yet">
-            <table border="1">
+            <table>
             <th>未提出</th>
                     <?php foreach($records_yet as $records_yet2){ ?>
                 <tr>
@@ -85,7 +84,5 @@ $records_yet = $database_yet -> all_records_yet();
             </table>
         </div>
     </div>
-    
-
 </body>
 </html>

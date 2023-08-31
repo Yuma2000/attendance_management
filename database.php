@@ -101,7 +101,7 @@ class Database{
                 INNER JOIN children ON records.child_id = children.id
                 LEFT JOIN replies ON records.id = replies.record_id
                 LEFT JOIN childminders ON replies.minder_id = childminders.id
-                WHERE records.child_id = ?';
+                WHERE records.child_id = ? ORDER BY records.date DESC';
         $stmt = $dbh->prepare($sql);
         $stmt->execute([$id]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

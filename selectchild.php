@@ -15,7 +15,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>F保育園 / 園児選択</title>
+    <title>出欠れんらくん</title>
     <link rel="stylesheet" href="css/selectchild.css">
     </head>
 <body>

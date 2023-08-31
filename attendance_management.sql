@@ -35,7 +35,7 @@ CREATE TABLE replies(
 	minder_id MEDIUMINT UNSIGNED NOT NULL,
 	content VARCHAR(128),
  	PRIMARY KEY(id),
-	FOREIGN KEY (recode_id) REFERENCES records(id),
+	FOREIGN KEY (record_id) REFERENCES records(id),
 	FOREIGN KEY (minder_id) REFERENCES childminders(id)
 	);
 

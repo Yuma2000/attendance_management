@@ -124,3 +124,22 @@ td a:hover {
     border-color: #fafcfc #fafcfc #c7c7c7 #cbcbcb;
     box-shadow: -1px 1px 2px rgb(0 0 0 / 10%);
 }
+
+.pagination{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    color: #4F4F4F;
+}
+.pagination-item{
+    flex: 1;
+    text-align: center;
+    /* color: #4F4F4F; */
+
+}
+.pagination-item a{
+    font-size: 20px;
+    padding: 10px 20px;
+    color: #4F4F4F;
+    text-decoration: none;
+}

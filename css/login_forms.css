@@ -5,7 +5,6 @@ body{
     padding: 0;
 }
 
-
 .header {
     display: flex;
     justify-content: space-between;
@@ -16,23 +15,25 @@ body{
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     text-decoration: none;
 }
+
 .header-center {
     flex: 1;
     text-align: center;
     text-decoration: none;
 }
+
 .header-left a,
 .header-right {
     color: #4F4F4F;
     text-decoration: none;
     transition: opacity 0.3s;
 }
+
 .header-left a:hover {
     opacity: 0.7;
     text-decoration: none;
 }
 
-/* 大枠 */
 .forms-border{
     background-color: #ffffff;
     color: #4F4F4F;
@@ -47,6 +48,58 @@ body{
     font-weight:bold;
 }
 
+.form-content {
+    margin: 0 auto;
+    width: 250px;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    /* width: 100%; */
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding-right: 40px; /* アイコンのスペース分のパディングを追加 */
+}
+
+.password-container {
+    position: relative;
+    max-width: 250px;  /* 必要に応じて調整 */
+    margin: 10px 0;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #cccccc; /* アイコンの色を薄くする */
+}
+
 .login-submit{
     padding-top: 20px;
+}
+
+.login-submit input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFD679; /* ボタンの背景色をヘッダーと同じオレンジに */
+    color: #4F4F4F; /* テキストの色をダークグレイに */
+    font-weight: bold; /* テキストを太字に */
+    cursor: pointer; /* ホバー時のカーソルを指マークに */
+    transition: background-color 0.3s; /* 背景色のトランジション効果 */
+}
+
+.login-submit input[type="submit"]:hover {
+    background-color: #ffa34d; /* ホバー時の背景色を少し暗く */
+}
+
+/* 目のアイコンの位置を調整 */
+.password-toggle {
+    right: 38px; /* 右端からの位置を調整 */
+    top: 35%;
+    transform: translateY(-50%);
 }
